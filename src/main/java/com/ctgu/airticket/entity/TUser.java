@@ -1,7 +1,7 @@
 package com.ctgu.airticket.entity;
 
-import com.sun.javafx.beans.IDProperty;
 import lombok.Data;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
