@@ -7,9 +7,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * (TUser)实体类
  *
- * @author makejava
+ *
+ * @author 11032
  * @since 2020-12-18 14:41:09
  */
 @Entity
