@@ -41,6 +41,7 @@ public class TUserHandler {
 
     @PutMapping("/update")
     public String update(@RequestBody TUser tUser){
+
         TUser result = tUserRepository.save(tUser);
         if(result != null){
             return "success";

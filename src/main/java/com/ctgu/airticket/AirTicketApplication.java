@@ -14,6 +14,7 @@ public class AirTicketApplication {
         System.out.println("http://localhost:8181/tuser/findById/1");
         System.out.println("http://localhost:8181/ticketorder/findById/11");
         System.out.println("http://localhost:8181/ticketorder/deleteById/23");
+        System.out.println("http://localhost:8181/torderdetail/findAll/0/1");
 
     }
 
