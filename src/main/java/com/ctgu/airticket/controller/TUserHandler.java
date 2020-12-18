@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 /**
  *
  *
- * @author 11032
- * @since 2020-12-18 14:41:09
+ * @author xzh
+ * @since 2020-12-18 18:50
  */
 @RestController
 @RequestMapping("/tuser")
@@ -24,8 +24,8 @@ public class TUserHandler {
         PageRequest request = PageRequest.of(page,size);
         return tUserRepository.findAll(request);
     }
-    @GetMapping("/findById/{id}")
-    public TUser findById(@PathVariable("id") Integer id){
+    @GetMapping("/findById/{userid}")
+    public TUser findById(@PathVariable("userid") Integer id){
         return tUserRepository.findById(id).get();
     }
 
@@ -58,14 +58,18 @@ public class TUserHandler {
 //            return false;
 //        }
 //    }
-@PostMapping("/login")
-public boolean login(@RequestBody TUser tUser){
-    TUser result = tUserRepository.findByUsernameAndPassword(tUser.getUsername(),tUser.getPassword());
-    if(result!=null){
-        return true;
+    @PostMapping("/login")
+    public boolean login(@RequestBody TUser tUser){
+        TUser result = tUserRepository.findByUsernameAndPassword(tUser.getUsername(),tUser.getPassword());
+        if(result!=null){
+            return true;
+        }else{
+            return false;
+        }
     }
-    else{
-        return false;
+    @DeleteMapping("/deleteById/{userid}")
+    public void deleteById(@PathVariable("userid") Integer id){
+        tUserRepository.deleteById(id);
     }
-}
+
 }

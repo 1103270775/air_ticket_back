@@ -11,7 +11,7 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 18/12/2020 14:13:19
+ Date: 18/12/2020 19:27:32
 */
 
 SET NAMES utf8mb4;
@@ -22,11 +22,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_company`;
 CREATE TABLE `t_company`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyname` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `logourl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
+  `cName` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `logoUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`cid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -41,48 +41,51 @@ INSERT INTO `t_company` VALUES (3, '东方航空', 'http://simg1.qunarzz.com/sit
 -- ----------------------------
 DROP TABLE IF EXISTS `t_flight`;
 CREATE TABLE `t_flight`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fid` int(11) NOT NULL AUTO_INCREMENT,
+  `airCraftNo` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `airCraftType` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `fromCity` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `toCity` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `fromTime` datetime(0) NULL DEFAULT NULL,
+  `toTime` datetime(0) NULL DEFAULT NULL,
   `ecPrice` int(11) NOT NULL,
+  `flyTime` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `ecTicketRemain` int(11) NOT NULL,
   `ecTicketTotal` int(11) NOT NULL,
   `fcPrice` int(11) NOT NULL,
   `fcTicketRemain` int(11) NOT NULL,
   `fcTicketTotal` int(11) NOT NULL,
   `flightType` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `fromCity` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `fromTime` datetime(0) NULL DEFAULT NULL,
-  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `toCity` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `toTime` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  `cName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`fid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_flight
 -- ----------------------------
-INSERT INTO `t_flight` VALUES (1, 400, 294, 292, 800, 20, 10, '国内航班', '北京', '2021-01-01 15:30:00', '东方航空MU3748', '鄂尔多斯', '2021-01-01 17:00:00');
-INSERT INTO `t_flight` VALUES (2, 398, 291, 120, 700, 10, 8, '国内航班', '北京', '2021-08-10 18:40:32', '东方航空MU5278', '太原', '2021-01-01 17:00:00');
-INSERT INTO `t_flight` VALUES (3, 608, 292, 292, 1808, 7, 10, '国内航班', '北京', '2021-08-10 18:40:32', '东方航空MU5170', '合肥', '2021-01-01 15:30:00');
-INSERT INTO `t_flight` VALUES (4, 1800, 292, 292, 4000, 10, 10, '国际航班', '上海', '2021-01-01 00:00:00', '东方航空MU542', '东京', '2021-01-01 00:00:00');
-INSERT INTO `t_flight` VALUES (5, 1000, 292, 292, 3000, 10, 10, '国际航班', '上海', '2021-01-01 00:00:00', '东方航空MU9827', '首尔', '2021-01-01 00:00:00');
-INSERT INTO `t_flight` VALUES (6, 2000, 292, 292, 4000, 10, 10, '国际航班', '上海', '2021-10-10 18:40:32', '东方航空MU9828', '新加坡', '2021-01-01 15:30:00');
-INSERT INTO `t_flight` VALUES (7, 400, 292, 292, 800, 10, 10, '国内航班', '上海', '2021-10-10 18:40:32', '东方航空MU9824', '广州', '2021-01-01 00:00:00');
-INSERT INTO `t_flight` VALUES (8, 500, 292, 292, 1000, 10, 10, '国内航班', '重庆', '2021-10-10 18:40:32', '东方航空MU9823', '广州', '2021-01-01 15:30:00');
-INSERT INTO `t_flight` VALUES (9, 1500, 292, 292, 5000, 10, 10, '国际航班', '上海', '2021-10-10 18:40:32', '东方航空MU9822', '东京', '2021-01-01 15:30:00');
-INSERT INTO `t_flight` VALUES (10, 1300, 291, 292, 2900, 10, 10, '国际航班', '上海', '2021-10-10 18:40:32', '东方航空MU9821', '首尔', '2021-01-01 15:30:00');
-INSERT INTO `t_flight` VALUES (13, 300, 228, 229, 600, 10, 10, '国际航班', '上海', '2021-04-11 10:53:31', '航班测试', '背景', '2021-04-12 10:54:37');
+INSERT INTO `t_flight` VALUES (1, NULL, NULL, '北京', '鄂尔多斯', '2021-01-01 15:30:00', '2021-01-01 17:00:00', 400, NULL, 294, 292, 800, 20, 10, '国内航班', '东方航空MU3748');
+INSERT INTO `t_flight` VALUES (2, NULL, NULL, '北京', '太原', '2021-08-10 18:40:32', '2021-01-01 17:00:00', 398, NULL, 291, 120, 700, 10, 8, '国内航班', '东方航空MU5278');
+INSERT INTO `t_flight` VALUES (3, NULL, NULL, '北京', '合肥', '2021-08-10 18:40:32', '2021-01-01 15:30:00', 608, NULL, 292, 292, 1808, 7, 10, '国内航班', '东方航空MU5170');
+INSERT INTO `t_flight` VALUES (4, NULL, NULL, '上海', '东京', '2021-01-01 00:00:00', '2021-01-01 00:00:00', 1800, NULL, 292, 292, 4000, 10, 10, '国际航班', '东方航空MU542');
+INSERT INTO `t_flight` VALUES (5, NULL, NULL, '上海', '首尔', '2021-01-01 00:00:00', '2021-01-01 00:00:00', 1000, NULL, 292, 292, 3000, 10, 10, '国际航班', '东方航空MU9827');
+INSERT INTO `t_flight` VALUES (6, NULL, NULL, '上海', '新加坡', '2021-10-10 18:40:32', '2021-01-01 15:30:00', 2000, NULL, 292, 292, 4000, 10, 10, '国际航班', '东方航空MU9828');
+INSERT INTO `t_flight` VALUES (7, NULL, NULL, '上海', '广州', '2021-10-10 18:40:32', '2021-01-01 00:00:00', 400, NULL, 292, 292, 800, 10, 10, '国内航班', '东方航空MU9824');
+INSERT INTO `t_flight` VALUES (8, NULL, NULL, '重庆', '广州', '2021-10-10 18:40:32', '2021-01-01 15:30:00', 500, NULL, 292, 292, 1000, 10, 10, '国内航班', '东方航空MU9823');
+INSERT INTO `t_flight` VALUES (9, NULL, NULL, '上海', '东京', '2021-10-10 18:40:32', '2021-01-01 15:30:00', 1500, NULL, 292, 292, 5000, 10, 10, '国际航班', '东方航空MU9822');
+INSERT INTO `t_flight` VALUES (10, NULL, NULL, '上海', '首尔', '2021-10-10 18:40:32', '2021-01-01 15:30:00', 1300, NULL, 291, 292, 2900, 10, 10, '国际航班', '东方航空MU9821');
+INSERT INTO `t_flight` VALUES (13, NULL, NULL, '上海', '背景', '2021-04-11 10:53:31', '2021-04-12 10:54:37', 300, NULL, 228, 229, 600, 10, 10, '国际航班', '航班测试');
 
 -- ----------------------------
 -- Table structure for t_manager
 -- ----------------------------
 DROP TABLE IF EXISTS `t_manager`;
 CREATE TABLE `t_manager`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `mid` int(11) NOT NULL AUTO_INCREMENT,
+  `passWord` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `trueName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `userName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`mid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -97,12 +100,12 @@ INSERT INTO `t_manager` VALUES (3, 'chen', '1111111', 'xiao', 'chen');
 -- ----------------------------
 DROP TABLE IF EXISTS `t_orderdetail`;
 CREATE TABLE `t_orderdetail`  (
-  `id` int(11) NOT NULL,
-  `passname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `idcard` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `flightid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `detailid` int(11) NOT NULL,
+  `passName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `idCard` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `fid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `orderid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`detailid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -114,23 +117,23 @@ CREATE TABLE `t_orderdetail`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_ticketorder`;
 CREATE TABLE `t_ticketorder`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderid` int(11) NOT NULL AUTO_INCREMENT,
   `orderNo` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `orderTime` datetime(0) NULL DEFAULT NULL,
   `price` int(11) NOT NULL,
   `spaceType` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `flightId` int(11) NULL DEFAULT NULL,
-  `userId` int(11) NULL DEFAULT NULL,
+  `fid` int(11) NULL DEFAULT NULL,
+  `uid` int(11) NULL DEFAULT NULL,
   `num` int(11) NOT NULL,
   `totalPrice` int(11) NOT NULL,
-  `contactphone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `contactname` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `paystatus` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `FK_5vujoeb2yrjvt9tjx9bcevvrn`(`flightId`) USING BTREE,
-  INDEX `FK_nhv1j8c29cntipsxc91yith8y`(`userId`) USING BTREE,
-  CONSTRAINT `FK_5vujoeb2yrjvt9tjx9bcevvrn` FOREIGN KEY (`flightId`) REFERENCES `t_flight` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `FK_nhv1j8c29cntipsxc91yith8y` FOREIGN KEY (`userId`) REFERENCES `t_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  `contactPhone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `contactName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `payStatus` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`orderid`) USING BTREE,
+  INDEX `FK_5vujoeb2yrjvt9tjx9bcevvrn`(`fid`) USING BTREE,
+  INDEX `FK_nhv1j8c29cntipsxc91yith8y`(`uid`) USING BTREE,
+  CONSTRAINT `FK_5vujoeb2yrjvt9tjx9bcevvrn` FOREIGN KEY (`fid`) REFERENCES `t_flight` (`fid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK_nhv1j8c29cntipsxc91yith8y` FOREIGN KEY (`uid`) REFERENCES `t_user` (`userId`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -151,36 +154,37 @@ INSERT INTO `t_ticketorder` VALUES (20, 'NO20150412014648', '2021-04-12 13:46:48
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `userId` int(11) NOT NULL AUTO_INCREMENT,
+  `userName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `passWord` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nickName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `sex` varchar(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `idcard` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `email` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `trueName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `userName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  `idCard` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`userId`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (1, '234@qq.com', 'chen', '67890', '男', '456789', 'xiao', 'chen');
-INSERT INTO `t_user` VALUES (2, '234@qq.com', '123', '2321321', '女', '21321321211', '小红', 'marry');
-INSERT INTO `t_user` VALUES (3, '123@qq.com', '123', 'ppp', '男', '6666', '123', 'jack2');
-INSERT INTO `t_user` VALUES (4, '123@qq.com', '123', '123', '女', '1231231231233', '123', 'json');
-INSERT INTO `t_user` VALUES (7, '11@qq.com', 'li', '18802058888', '男', '1231231231233', 'li', 'li');
-INSERT INTO `t_user` VALUES (8, '11@qq.com', 'li', '18802058888', '男', '1231231231233', 'li', 'chen');
-INSERT INTO `t_user` VALUES (9, '11@qq.com', 'li', '18802058888', '男', '1231231231233', 'li', 'chen');
-INSERT INTO `t_user` VALUES (10, 'ming@qq.com', 'ming', '18802058888', '男', '460005199202123756', 'ming', 'ming');
-INSERT INTO `t_user` VALUES (11, 'ming@qq.com', 'ming', '18802058888', '男', '460005199202123756', 'ming', 'ming');
-INSERT INTO `t_user` VALUES (12, 'ming@qq.com', 'ming', '18802058888', '男', '460005199202123756', 'ming', 'ming');
-INSERT INTO `t_user` VALUES (13, 'ming@qq.com', 'ming', '18802058888', '男', '460005199202123756', 'ming', 'ming');
-INSERT INTO `t_user` VALUES (14, 'ming@qq.com', 'ming', '18802058888', '男', '460005199202123756', 'ming', 'ming');
-INSERT INTO `t_user` VALUES (15, 'ming@qq.com', 'ming', '18802058888', '男', '460005199202123756', 'ming', 'ming');
-INSERT INTO `t_user` VALUES (16, 'zhou@qq.com', 'zhou', '18802058888', '男', '460005199202123750', 'zhou', 'zhou');
-INSERT INTO `t_user` VALUES (17, '123@qq.com', '123', '18802058888', '男', '111111111111111111', '123', '123');
-INSERT INTO `t_user` VALUES (18, '123@qq.com', '123', '18802057896', '男', '460005199209094571', '666', '666');
-INSERT INTO `t_user` VALUES (19, '11@qq.com', '9', '9', '男', '9', '9', '9');
+INSERT INTO `t_user` VALUES (1, 'chen', 'chen', NULL, '男', '67890', '234@qq.com', 'xiao', '456789');
+INSERT INTO `t_user` VALUES (2, 'marry', '123', NULL, '女', '2321321', '234@qq.com', '小红', '21321321211');
+INSERT INTO `t_user` VALUES (3, 'jack2', '123', NULL, '男', 'ppp', '123@qq.com', '123', '6666');
+INSERT INTO `t_user` VALUES (4, 'json', '123', NULL, '女', '123', '123@qq.com', '123', '1231231231233');
+INSERT INTO `t_user` VALUES (7, 'li', 'li', NULL, '男', '18802058888', '11@qq.com', 'li', '1231231231233');
+INSERT INTO `t_user` VALUES (8, 'chen', 'li', NULL, '男', '18802058888', '11@qq.com', 'li', '1231231231233');
+INSERT INTO `t_user` VALUES (9, 'chen', 'li', NULL, '男', '18802058888', '11@qq.com', 'li', '1231231231233');
+INSERT INTO `t_user` VALUES (10, 'ming', 'ming', NULL, '男', '18802058888', 'ming@qq.com', 'ming', '460005199202123756');
+INSERT INTO `t_user` VALUES (11, 'ming', 'ming', NULL, '男', '18802058888', 'ming@qq.com', 'ming', '460005199202123756');
+INSERT INTO `t_user` VALUES (12, 'ming', 'ming', NULL, '男', '18802058888', 'ming@qq.com', 'ming', '460005199202123756');
+INSERT INTO `t_user` VALUES (13, 'ming', 'ming', NULL, '男', '18802058888', 'ming@qq.com', 'ming', '460005199202123756');
+INSERT INTO `t_user` VALUES (14, 'ming', 'ming', NULL, '男', '18802058888', 'ming@qq.com', 'ming', '460005199202123756');
+INSERT INTO `t_user` VALUES (15, 'ming', 'ming', NULL, '男', '18802058888', 'ming@qq.com', 'ming', '460005199202123756');
+INSERT INTO `t_user` VALUES (16, 'zhou', 'zhou', NULL, '男', '18802058888', 'zhou@qq.com', 'zhou', '460005199202123750');
+INSERT INTO `t_user` VALUES (17, '123', '123', NULL, '男', '18802058888', '123@qq.com', '123', '111111111111111111');
+INSERT INTO `t_user` VALUES (18, '666', '123', NULL, '男', '18802057896', '123@qq.com', '666', '460005199209094571');
+INSERT INTO `t_user` VALUES (19, '9', '9', NULL, '男', '9', '11@qq.com', '9', '9');
 
 SET FOREIGN_KEY_CHECKS = 1;
