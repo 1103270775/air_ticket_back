@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2020-12-18 18:50
  */
 @RestController
-@RequestMapping("/tuser")
+@RequestMapping("/user")
 public class TUserHandler {
     @Autowired
     private TUserRepository tUserRepository;
@@ -24,9 +24,9 @@ public class TUserHandler {
         PageRequest request = PageRequest.of(page,size);
         return tUserRepository.findAll(request);
     }
-    @GetMapping("/findById/{userid}")
-    public TUser findById(@PathVariable("userid") Integer id){
-        return tUserRepository.findById(id).get();
+    @GetMapping("/findById")
+    public TUser findById(@RequestBody TUser tUser){
+        return tUserRepository.findById(tUser.getUserid()).get();
     }
 
     @PostMapping("/save")
@@ -68,9 +68,9 @@ public class TUserHandler {
             return false;
         }
     }
-    @DeleteMapping("/deleteById/{userid}")
-    public void deleteById(@PathVariable("userid") Integer id){
-        tUserRepository.deleteById(id);
+    @DeleteMapping("/deleteById")
+    public void deleteById(@RequestBody TUser tUser){
+        tUserRepository.deleteById(tUser.getUserid());
     }
 
 }

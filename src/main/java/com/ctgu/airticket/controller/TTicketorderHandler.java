@@ -25,9 +25,9 @@ public class TTicketorderHandler {
         return tTicketorderRepository.findAll(request);
     }
 
-    @GetMapping("/findById/{orderid}")
-    public TTicketorder findById(@PathVariable("orderid") Integer id) {
-        return tTicketorderRepository.findById(id).get();
+    @GetMapping("/findById")
+    public TTicketorder findById(@RequestBody TTicketorder tTicketorder) {
+        return tTicketorderRepository.findById(tTicketorder.getOrderid()).get();
     }
 
     @PostMapping("/save")
@@ -49,9 +49,9 @@ public class TTicketorderHandler {
             return "error";
         }
     }
-    @DeleteMapping("/deleteById/{orderid}")
-    public void deleteById(@PathVariable("orderid") Integer id){
-        tTicketorderRepository.deleteById(id);
+    @DeleteMapping("/deleteById")
+    public void deleteById(@RequestBody TTicketorder tTicketorder){
+        tTicketorderRepository.deleteById(tTicketorder.getOrderid());
     }
 
 }

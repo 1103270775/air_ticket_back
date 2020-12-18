@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2020-12-18 20:25
  */
 @RestController
-@RequestMapping("/torderdetail")
+@RequestMapping("/orderdetail")
 public class TOrderdetailHandler {
     @Autowired
     private TOrderdetailRepository tOrderdetailRepository;
@@ -28,9 +28,9 @@ public class TOrderdetailHandler {
         return tOrderdetailRepository.findAll(request);
     }
 
-    @GetMapping("/findById/{detailid}")
-    public TOrderdetail findById(@PathVariable("detailid") Integer id) {
-        return tOrderdetailRepository.findById(id).get();
+    @GetMapping("/findById")
+    public TOrderdetail findById(@RequestBody TOrderdetail tOrderdetail) {
+        return tOrderdetailRepository.findById(tOrderdetail.getDetailid()).get();
     }
 
     @PostMapping("/save")
@@ -52,8 +52,8 @@ public class TOrderdetailHandler {
             return "error";
         }
     }
-    @DeleteMapping("/deleteById/{detailid}")
-    public void deleteById(@PathVariable("detailid") Integer id){
-        tOrderdetailRepository.deleteById(id);
+    @DeleteMapping("/deleteById")
+    public void deleteById(@RequestBody TOrderdetail tOrderdetail){
+        tOrderdetailRepository.deleteById(tOrderdetail.getDetailid());
     }
 }
