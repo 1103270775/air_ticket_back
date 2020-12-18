@@ -49,6 +49,10 @@ public class TTicketorderHandler {
             return "error";
         }
     }
+    @DeleteMapping("/deleteById/{orderid}")
+    public void deleteById(@PathVariable("orderid") Integer id){
+        tTicketorderRepository.deleteById(id);
+    }
 
 }
 

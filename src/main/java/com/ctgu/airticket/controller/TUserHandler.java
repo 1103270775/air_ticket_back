@@ -58,13 +58,18 @@ public class TUserHandler {
 //            return false;
 //        }
 //    }
-@PostMapping("/login")
-public boolean login(@RequestBody TUser tUser){
-    TUser result = tUserRepository.findByUsernameAndPassword(tUser.getUsername(),tUser.getPassword());
-    if(result!=null){
-        return true;
-    }else{
-        return false;
+    @PostMapping("/login")
+    public boolean login(@RequestBody TUser tUser){
+        TUser result = tUserRepository.findByUsernameAndPassword(tUser.getUsername(),tUser.getPassword());
+        if(result!=null){
+            return true;
+        }else{
+            return false;
+        }
     }
-}
+    @DeleteMapping("/deleteById/{userid}")
+    public void deleteById(@PathVariable("userid") Integer id){
+        tUserRepository.deleteById(id);
+    }
+
 }
