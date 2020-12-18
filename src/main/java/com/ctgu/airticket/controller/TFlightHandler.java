@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 /**
  * @Author:Mr.zhou
@@ -21,7 +22,7 @@ public class TFlightHandler {
     @Autowired
     TFlightRepository tFlightRepository;
     //增加一条航班信息
-    @GetMapping("/save")
+    @PostMapping("/save")
     public String save(@RequestBody TFlight tFlight){
         TFlight save = tFlightRepository.save(tFlight);
         if (save!=null){
@@ -30,7 +31,7 @@ public class TFlightHandler {
             return "error";
         }
     }
-    @GetMapping("/deleteById")
+    @DeleteMapping("/deleteById")
     public String deleteById(@RequestBody TFlight tFlight){
         tFlightRepository.deleteById(tFlight.getFid());
         return "success";
@@ -42,6 +43,15 @@ public class TFlightHandler {
             return "success";
         }else{
             return "error";
+        }
+    }
+    @GetMapping("/findById")
+    public TFlight findById(@RequestBody TFlight tFlight){
+        Optional<TFlight> result = tFlightRepository.findById(tFlight.getFid());
+        if (result!=null) {
+            return result.get();
+        }else {
+            return null;
         }
     }
     @GetMapping("/findAll/{page}/{size}")

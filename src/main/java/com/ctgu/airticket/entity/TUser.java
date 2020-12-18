@@ -2,6 +2,8 @@ package com.ctgu.airticket.entity;
 
 import com.sun.javafx.beans.IDProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +17,8 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name="t_user")
+@Setter
+@Getter
 public class TUser implements Serializable {
 
     @Id
