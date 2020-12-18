@@ -1,6 +1,7 @@
 HELP.md
 
 #忽略文件
+#成功
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
