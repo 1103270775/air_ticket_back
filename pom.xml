@@ -8,10 +8,10 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.southwind</groupId>
-    <artifactId>springboottest</artifactId>
+    <groupId>com.ctgu.air_ticket</groupId>
+    <artifactId>air_ticket</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboottest</name>
+    <name>air_ticket</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
