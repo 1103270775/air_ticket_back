@@ -1,9 +1,11 @@
 HELP.md
-target/
+
 #忽略文件
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+src/main/resources
+target/
 
 ### STS ###
 .apt_generated
@@ -19,6 +21,7 @@ target/
 *.iws
 *.iml
 *.ipr
+*.yml
 
 ### NetBeans ###
 /nbproject/private/
