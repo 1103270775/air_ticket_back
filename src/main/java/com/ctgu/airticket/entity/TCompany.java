@@ -13,7 +13,6 @@ import java.io.Serializable;
  */
 
 @Entity
-@Data
 @Table(name = "t_company")
 public class TCompany implements Serializable {
     private static final long serialVersionUID = 499541913435883875L;
