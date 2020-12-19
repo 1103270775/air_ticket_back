@@ -19,9 +19,9 @@ public class TUserHandler {
     @Autowired
     private TUserRepository tUserRepository;
 
-    @GetMapping("/findAll/{page}/{size}")
-    public Page<TUser> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size){
-        PageRequest request = PageRequest.of(page,size);
+    @GetMapping("/findAll")
+    public Page<TUser> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
+        PageRequest request = PageRequest.of(page-1,size);
         return tUserRepository.findAll(request);
     }
     @GetMapping("/findById")
