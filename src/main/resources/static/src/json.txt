@@ -1,0 +1,19 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 1000,
+  "data":  [
+        {
+            "cid": 1,
+            "cname": "吉祥航空",
+            "logourl": "http://simg1.qunarzz.com/site/images/airlines/HO.gif",
+            "description": null
+        },
+        {
+            "cid": 2,
+            "cname": "深圳航空",
+            "logourl": "http://simg1.qunarzz.com/site/images/airlines/HO.gif",
+            "description": null
+        }
+    ]
+} 
