@@ -130,28 +130,49 @@
 
 			//自定义验证规则
 			form.verify({
-				userName: function (value) {
-					if (value.length < 5) {
-						return '账号至少得5个字符';
-					}
-				}
-				, pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
-				, vercodes: function (value) {
+				// userName: function (value) {
+				// 	if (value.length < 5) {
+				// 		return '账号至少得5个字符';
+				// 	}
+				// }
+				// , pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
+				vercodes: function (value) {
 					//获取验证码
 					var zylVerCode = $(".zylVerCode").html();
 					if (value != zylVerCode) {
 						return '验证码错误（区分大小写）';
 					}
 				}
-				, content: function (value) {
-					layedit.sync(editIndex);
-				}
+				//页面发送请求跳转
+				// , content: function (value) {
+				// 	layedit.sync(editIndex);
+				// }
 			});
 
 			//监听提交
 			form.on('submit(demo1)', function (data) {
-				layer.alert(JSON.stringify(data.field), {
-					title: '最终的提交信息'
+
+				// layer.alert(JSON.stringify(data.field.username), {
+				// 	title: '最终的提交信息'
+				// })
+				// return false;
+				var jsonstr = { "username": data.field.username, "password": data.field.password };
+				$.ajax({
+					url: "http://localhost:8181/user/login",
+					type: "POST",
+					contentType: "application/json",
+					dataType: "json",
+					data: JSON.stringify(jsonstr),
+					success: function (result) {
+						if (result) {
+							//页面跳转
+							window.location.href = "background_test.html";
+						} else {
+							layer.alert(JSON.stringify(data.field.username), {
+								title: '最终的提交信息'
+							})
+						}
+					}
 				})
 				return false;
 			});
