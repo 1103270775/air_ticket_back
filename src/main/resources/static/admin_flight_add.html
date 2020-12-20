@@ -76,7 +76,7 @@
                         <input type="text" name="fromcity" required lay-verify="required" placeholder=""
                             autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                    
                 </div>
                 <!-- 到达城市 -->
                 <div class="layui-form-item">
@@ -85,7 +85,6 @@
                         <input type="text" name="tocity" required lay-verify="required" placeholder=""
                             autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">辅助文字</div>
                 </div>
                 <!-- 出发时间 -->
                 <div class="layui-form-item">
@@ -103,17 +102,18 @@
                     <div class="layui-input-block">
                         <div class="layui-inline">
                             <!-- 注意：这一层元素并不是必须的 -->
-                            <input name="totime" type="text" class="layui-input" id="test1">
+                            <input name="totime" type="text" class="layui-input" id="test2">
                         </div>
                     </div>
                 </div>
                 <!-- 经济舱价格 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label" style="width: 160px;">经济舱价格</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input style="width: 160px;" type="text" name="ecprice" required lay-verify="required"
                             placeholder="" autocomplete="off" class="layui-input">
                     </div>
+                    <div class="layui-form-mid layui-word-aux">元</div>
                 </div>
                 <!-- 经济舱座位总数 -->
                 <div class="layui-form-item">
@@ -134,10 +134,11 @@
                 <!-- 头等舱价格 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label" style="width: 160px;">头等舱价格</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input style="width: 160px;" type="text" name="fcprice" required lay-verify="required"
                             placeholder="" autocomplete="off" class="layui-input">
                     </div>
+                    <div class="layui-form-mid layui-word-aux">元</div>
                 </div>
                 <!-- 头等舱座位总数 -->
                 <div class="layui-form-item">
@@ -158,10 +159,11 @@
                 <!-- 航班类型 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label" style="width: 160px;">航班类型</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input style="width: 100px;" type="text" name="flighttype" required lay-verify="required"
                             placeholder="" autocomplete="off" class="layui-input">
                     </div>
+                    <div class="layui-form-mid layui-word-aux">如：国内航班或国际航班</div>
                 </div>
                 <!-- 客机类型 -->
                 <div class="layui-form-item">
@@ -232,6 +234,10 @@
             //执行一个laydate实例
             laydate.render({
                 elem: '#test1' //指定元素
+                ,type: 'datetime'
+            });
+            laydate.render({
+                elem: '#test2' //指定元素
                 ,type: 'datetime'
             });
         });

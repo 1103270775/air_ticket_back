@@ -136,9 +136,9 @@
                 console.log(obj)
                 var data = obj.data;
                 if (obj.event === 'detail') {
-                    layer.msg('ID：' + data.cid + ' 的查看操作');
+                    layer.msg('ID：' + data.fid + ' 的查看操作');
                 } else if (obj.event === 'del') {
-                    var json_str = { "cid": data.cid };
+                    var json_str = { "fid": data.fid };
                     layer.confirm('真的删除行么', function (index) {
                         obj.del();
                         layer.close(index);
