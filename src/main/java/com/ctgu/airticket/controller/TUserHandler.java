@@ -1,11 +1,14 @@
 package com.ctgu.airticket.controller;
 
+import com.ctgu.airticket.entity.CommonResult;
 import com.ctgu.airticket.entity.TUser;
 import com.ctgu.airticket.repository.TUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  *
@@ -20,9 +23,12 @@ public class TUserHandler {
     private TUserRepository tUserRepository;
 
     @GetMapping("/findAll")
-    public Page<TUser> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
+    public CommonResult<List<TUser>> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
         PageRequest request = PageRequest.of(page-1,size);
-        return tUserRepository.findAll(request);
+//       System.out.println(tUserRepository.findAll(request).getContent());
+        List<TUser> content = tUserRepository.findAll(request).getContent();
+        int count = (int)tUserRepository.count();
+        return new CommonResult<>(200, "用户信息列表",count, content);
     }
     @GetMapping("/findById")
     public TUser findById(@RequestBody TUser tUser){
