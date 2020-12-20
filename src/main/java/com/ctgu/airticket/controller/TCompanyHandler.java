@@ -1,5 +1,6 @@
 package com.ctgu.airticket.controller;
 
+import com.ctgu.airticket.entity.CommonResult;
 import com.ctgu.airticket.entity.TCompany;
 import com.ctgu.airticket.entity.TFlight;
 import com.ctgu.airticket.repository.TCompanyRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -58,10 +60,12 @@ public class TCompanyHandler {
             return null;
         }
     }
-    @GetMapping("/findAll/{page}/{size}")
-    public Page<TCompany> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size){
-        PageRequest request = PageRequest.of(page,size);
-        return tCompanyRepository.findAll(request);
+    @GetMapping("/findAll")
+    public CommonResult<List<TCompany>> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
+        PageRequest request = PageRequest.of(page-1,size);
+        List<TCompany> content = tCompanyRepository.findAll(request).getContent();
+        int count = (int)tCompanyRepository.count();
+        return new CommonResult<>(200, "公司信息列表",count,content);
     }
 
 }

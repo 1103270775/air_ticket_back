@@ -1,38 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>首页</title>
-    <link rel="stylesheet" href="layui/css/layui.css">
+  <meta charset="utf-8">
+  <title>table模块快速使用</title>
+  <link rel="stylesheet" href="/layui/css/layui.css" media="all">
 </head>
 <body>
-    <table id="demo" lay-filter="test"></table>
  
-    <script>
-    layui.use('table', function(){
-      var table = layui.table;
-      
-      //第一个实例
-      table.render({
-        elem: '#demo'
-        ,height: 312
-        ,url: 'http://localhost:8181/company/findAll/0/2' //数据接口
-        ,page: true //开启分页
-        ,cols: [[ //表头
-          {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-          ,{field: 'username', title: '用户名', width:80}
-          ,{field: 'sex', title: '性别', width:80, sort: true}
-          ,{field: 'city', title: '城市', width:80} 
-          ,{field: 'sign', title: '签名', width: 177}
-          ,{field: 'experience', title: '积分', width: 80, sort: true}
-          ,{field: 'score', title: '评分', width: 80, sort: true}
-          ,{field: 'classify', title: '职业', width: 80}
-          ,{field: 'wealth', title: '财富', width: 135, sort: true}
-        ]]
-      });
-      
-    });
-    </script>
-<script src="layui/layui.js"></script>
+<table id="demo" lay-filter="test"></table>
+ 
+<script src="/layui/layui.js"></script>
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+  
+  //第一个实例
+  table.render({
+    elem: '#demo'
+    ,height: 312
+    ,url: 'http://localhost:8181/company/findAll' //数据接口
+    ,page: true //开启分页
+    ,cols: [[ //表头
+      {field: 'cid', title: 'ID', width:80, sort: true, fixed: 'left'}
+      ,{field: 'cname', title: '用户名', width:80}
+      ,{field: 'logourl', title: '性别', width:400, sort: true}
+      ,{field: 'description', title: '城市', width:80} 
+    ]]
+    ,request: {
+    pageName: 'page' //页码的参数名称，默认：page
+    ,limitName: 'size' //每页数据量的参数名，默认：limit
+  }
+  ,response:{
+    statusCode: 200
+  }
+  });
+  
+});
+</script>
 </body>
 </html>
