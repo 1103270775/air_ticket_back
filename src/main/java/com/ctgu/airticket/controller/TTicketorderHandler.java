@@ -1,11 +1,14 @@
 package com.ctgu.airticket.controller;
 
+import com.ctgu.airticket.entity.CommonResult;
 import com.ctgu.airticket.entity.TTicketorder;
 import com.ctgu.airticket.repository.TTicketorderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  *
@@ -19,10 +22,12 @@ public class TTicketorderHandler {
     @Autowired
     private TTicketorderRepository tTicketorderRepository;
 
-    @GetMapping("/findAll/{page}/{size}")
-    public Page<TTicketorder> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
-        PageRequest request = PageRequest.of(page, size);
-        return tTicketorderRepository.findAll(request);
+    @GetMapping("/findAll")
+    public CommonResult<List<TTicketorder>> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+        PageRequest request = PageRequest.of(page-1, size);
+        List<TTicketorder> content = tTicketorderRepository.findAll(request).getContent();
+        int count = (int)tTicketorderRepository.count();
+        return new CommonResult<>(200,"订单表显示",count,content);
     }
 
     @GetMapping("/findById")

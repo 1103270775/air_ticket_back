@@ -1,6 +1,7 @@
 package com.ctgu.airticket.controller;
 
 
+import com.ctgu.airticket.entity.CommonResult;
 import com.ctgu.airticket.entity.TOrderdetail;
 import com.ctgu.airticket.entity.TTicketorder;
 import com.ctgu.airticket.repository.TOrderdetailRepository;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  *
@@ -22,10 +25,12 @@ public class TOrderdetailHandler {
     @Autowired
     private TOrderdetailRepository tOrderdetailRepository;
 
-    @GetMapping("/findAll/{page}/{size}")
-    public Page<TOrderdetail> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
-        PageRequest request = PageRequest.of(page, size);
-        return tOrderdetailRepository.findAll(request);
+    @GetMapping("/findAll")
+    public CommonResult<List<TOrderdetail>> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
+        PageRequest request = PageRequest.of(page-1, size);
+        List<TOrderdetail> content = tOrderdetailRepository.findAll(request).getContent();
+        int count = (int)tOrderdetailRepository.count();
+        return new CommonResult<>(200,"订单详情表",count,content);
     }
 
     @GetMapping("/findById")

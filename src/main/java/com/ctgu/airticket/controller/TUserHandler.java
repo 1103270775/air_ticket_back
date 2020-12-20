@@ -25,7 +25,6 @@ public class TUserHandler {
     @GetMapping("/findAll")
     public CommonResult<List<TUser>> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
         PageRequest request = PageRequest.of(page-1,size);
-//       System.out.println(tUserRepository.findAll(request).getContent());
         List<TUser> content = tUserRepository.findAll(request).getContent();
         int count = (int)tUserRepository.count();
         return new CommonResult<>(200, "用户信息列表",count, content);
@@ -55,16 +54,7 @@ public class TUserHandler {
             return "error";
         }
     }
-//    @PostMapping("/login")
-//    public boolean login(@RequestParam(value = "username")String username,@RequestParam(value = "password")String password){
-//        TUser result = tUserRepository.findByUsernameAndPassword(username,password);
-//        if(result!=null){
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
-//    }
+
     @PostMapping("/login")
     public boolean login(@RequestBody TUser tUser){
         TUser result = tUserRepository.findByUsernameAndPassword(tUser.getUsername(),tUser.getPassword());

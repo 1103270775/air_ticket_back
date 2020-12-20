@@ -1,5 +1,6 @@
 package com.ctgu.airticket.controller;
 
+import com.ctgu.airticket.entity.CommonResult;
 import com.ctgu.airticket.entity.TManager;
 import com.ctgu.airticket.entity.TUser;
 import com.ctgu.airticket.repository.TManagerRepository;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  *
@@ -22,10 +25,12 @@ public class TManagerHandler {
     private TManagerRepository tManagerRepository;
 
 
-    @GetMapping("/findAll/{page}/{size}")
-    public Page<TManager> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size){
-        PageRequest request = PageRequest.of(page,size);
-        return tManagerRepository.findAll(request);
+    @GetMapping("/findAll")
+    public CommonResult<List<TManager>> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
+        PageRequest request = PageRequest.of(page-1,size);
+        List<TManager> content = tManagerRepository.findAll(request).getContent();
+        int count = (int)tManagerRepository.count();
+        return new CommonResult<>(200,"管理人员表",count,content);
     }
     @GetMapping("/findById")
     public TManager findById(@RequestBody TManager tManager){

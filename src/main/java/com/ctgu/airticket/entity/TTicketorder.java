@@ -44,7 +44,7 @@ public class TTicketorder implements Serializable {
     
     private String paystatus;
 
-    private String idCard;
+    private String idcard;
 
 
     public Integer getOrderid() {
