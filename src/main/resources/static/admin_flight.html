@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin ">
+        <div class="layui-header">
+            <img class="layui-logo" src="src/logo_admin.png"></img>
+            <!-- 头部区域（可配合layui已有的水平导航）
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="">控制台</a></li>
+      <li class="layui-nav-item"><a href="">商品管理</a></li>
+      <li class="layui-nav-item"><a href="">用户</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">其它系统</a>
+        <dl class="layui-nav-child">
+          <dd><a href="">邮件管理</a></dd>
+          <dd><a href="">消息管理</a></dd>
+          <dd><a href="">授权管理</a></dd>
+        </dl>
+      </li>
+    </ul> -->
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">注销</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">航空信息管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">航班管理</a></dd>
+                            <dd><a href="javascript:;">航班新增</a></dd>
+                            <dd><a href="javascript:;">航空公司管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">用户管理</a></dd>
+                            <dd><a href="javascript:;">用户添加</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="">订单管理</a></li>
+                    <li class="layui-nav-item"><a href="">消息中心</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <ul class="layui-tab-title site-demo-title">
+                <li class="layui-this" style="width: 100px;">航空公司管理</li>
+                <div id="layerDemo" class="layui-inline">
+                    <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">新增</button>
+                </div>
+                
+            </ul>
+            <table class="layui-hide" id="flight_list" lay-filter="test"></table>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © airticket.com - 航空公司列表
+        </div>
+    </div>
+    <script src="layui/layui.js"></script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+
+        layui.use('table', function () {
+            var table = layui.table;
+
+            table.render({
+                elem: '#flight_list'
+                , url: 'http://localhost:8181/flight/findAll'
+                , toolbar: true
+                , title: '航班信息列表'
+                , totalRow: true
+                , cols: [[
+                    { type: 'checkbox', fixed: 'left' }
+                    , { field: 'fid', title: 'FID', width: 80, fixed: 'left', unresize: true, sort: true }
+                    , { field: 'aircraftno', title: '航空公司名称', width: 120, edit: 'text' }
+                    , { field: 'aircrafttype', title: 'logo图标url', width: 300, edit: 'text' }
+                    , { field: 'fromcity', title: '公司描述', width: 400 ,edit: 'text'}
+                    , { fixed: 'right', width: 178, align: 'center', toolbar: '#barDemo' }
+
+                ]]
+                , request: {
+                    pageName: 'page' //页码的参数名称，默认：page
+                    , limitName: 'size' //每页数据量的参数名，默认：limit
+                }
+                , page: true
+                , response: {
+                    statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+                }
+            });
+        });
+
+        layui.use('table', function () {
+            var table = layui.table;
+            //监听表格复选框选择
+            table.on('checkbox(test)', function (obj) {
+                console.log(obj)
+            });
+            //监听工具条
+            table.on('tool(test)', function (obj) {
+                console.log(obj)
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                    layer.msg('ID：' + data.cid + ' 的查看操作');
+                } else if (obj.event === 'del') {
+                    var json_str = { "cid": data.cid };
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        layer.close(index);
+                        $.ajax({
+                            url: "http://localhost:8181/company/deleteById",
+                            type: "DELETE",
+                            contentType: "application/json",//设置请求参数类型为json字符串
+                            data: JSON.stringify(json_str), //将json对象转换成json字符串发送
+                            dataType: "json",
+                            success: function (result) {
+                                layer.msg("删除成功", {
+                            icon: 1
+                        });
+                            },
+                        });
+                    });
+                } else if (obj.event === 'edit') {
+                    layer.alert('编辑行：<br>' + JSON.stringify(data))
+                }
+            });
+            table.on('edit(test)', function (obj) {
+                var post_data = obj.data //得到所在行所有键值
+                var json_str=JSON.stringify(post_data)
+                console.log(json_str)
+                $.ajax({//异步请求返回给后台
+                    url: 'http://localhost:8181/company/update',
+                    type: 'put',
+                    data: json_str,
+                    contentType: "application/json",//设置请求参数类型为json字符串
+                    success: function (data) {
+                        //这里获取到数据执行显示
+                        console.log(data)
+                        layer.msg("修改成功", {
+                            icon: 1
+                        });
+                    },
+                    error: function () {
+                        layer.alert("网络出错", {
+                            icon: 2
+                        });
+                    }
+                });
+            });
+
+            var $ = layui.$, active = {
+                getCheckData: function () { //获取选中数据
+                    var checkStatus = table.checkStatus('idTest')
+                        , data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                }
+                , getCheckLength: function () { //获取选中数目
+                    var checkStatus = table.checkStatus('idTest')
+                        , data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                }
+                , isAll: function () { //验证是否全选
+                    var checkStatus = table.checkStatus('idTest');
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                }
+            };
+
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+
+        layui.use('layer', function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+            //触发事件
+            var active = {
+                offset: function (othis) {
+                    var type = othis.data('type')
+                        , text = othis.text();
+
+                    layer.open({
+                        type: 1
+                        , title: ["航班信息新增"]
+                        , area: ["500px", "350px"]
+                        , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                        , id: 'layerDemo' + type //防止重复弹出
+                        , content: $('#company_add_form')
+                        , btn: ["提交", "取消"]
+                        , btnAlign: 'c' //按钮居中
+                        , shade: 0 //不显示遮罩
+                        , yes: function () {
+
+                            var data = {};
+                            var form= $('form').serializeArray();
+                            $.each(form, function () {
+                                data[this.name] = this.value;
+                            });
+                            var json_str=JSON.stringify(data);
+                            console.log(json_str)
+                            $.ajax({
+                                            url: "http://localhost:8181/company/save",
+                                            type: "post",
+                                            contentType: "application/json",//设置请求参数类型为json字符串
+                                            data: json_str, //将json对象转换成json字符串发送
+                                            dataType: "json",
+                                            success: function (result) {
+                                            console.log(result)
+                                            layer.msg("新增成功",{
+                                                icon:1
+                                            })
+                                        
+                                            layer.closeAll();
+                                            //重新加载父页面
+									parent.location.reload();
+                                            },
+                                        });
+                        }
+                        , cancel: function () {
+                            //右上角关闭回调
+                            layer.closeAll();
+                        }
+                    });
+                }
+            };
+
+            $('#layerDemo .layui-btn').on('click', function () {
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+<form class="layui-form" id="company_add_form" style="display:none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">航空公司名</label>
+        <div class="layui-input-block">
+            <input id="cname" type="text" name="cname" required lay-verify="required" placeholder="请输入公司名"
+                autocomplete="on" class="layui-input" style="width:200px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">logo图标url</label>
+        <div class="layui-input-block">
+            <input id="logourl" type="text" name="logourl" required lay-verify="required" placeholder="请输入url"
+                autocomplete="on" class="layui-input" style="width:360px">
+        </div>
+
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">description</label>
+            <div class="layui-input-block">
+                <textarea id="desc" lay-verify="required" name="description" placeholder="请输入公司描述" class="layui-textarea"
+                    style="width:360px"></textarea>
+            </div>
+        </div>
+
+
+</form>
