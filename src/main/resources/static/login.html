@@ -152,10 +152,6 @@
 			//监听提交
 			form.on('submit(demo1)', function (data) {
 
-				// layer.alert(JSON.stringify(data.field.username), {
-				// 	title: '最终的提交信息'
-				// })
-				// return false;
 				var jsonstr = { "username": data.field.username, "password": data.field.password };
 				$.ajax({
 					url: "http://localhost:8181/manager/login",
