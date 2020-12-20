@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>机票预订系统后台</title>
+    <link rel="icon" href="src/icon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin ">
+        <div class="layui-header">
+            <a href="admin_flight.html"><img class="layui-logo" src="src/logo_admin.png"></img></a>
+
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="login.html">注销</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">航空信息管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="admin_flight.html">航班管理</a></dd>
+                            <dd><a href="admin_flight_add.html">航班新增</a></dd>
+                            <dd><a href="admin_company.html">航空公司管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="admin_userManager.html">用户管理</a></dd>
+                            <dd><a href="admin_user_add.html">用户添加</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="admin_order.html">订单管理</a></li>
+                    <li class="layui-nav-item"><a href="admin_message.html">消息中心</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <ul class="layui-tab-title site-demo-title">
+                <li class="layui-this" style="width: 100px;">订单管理</li>
+            </ul>
+            <!-- <div style="padding: 15px;">内容主体区域</div> -->
+            <!-- 订单表 -->
+            <table class="layui-hide" id="test" lay-filter="test"></table>
+
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            @air_ticket.com
+        </div>
+    </div>
+
+    <script src="layui/layui.js"></script>
+    <!-- Jquery Js -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+
+        layui.use('table', function () {
+                var table = layui.table;
+
+                table.render({
+                    elem: '#test'
+                    , url: 'http://localhost:8181/ticketorder/findAll'
+                    , toolbar: true
+                    , title: '订单管理'
+                    , totalRow: true
+                    , cols: [[
+                        { type: 'checkbox', fixed: 'left' }
+                        , { field: 'orderid', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true }
+                        , { field: 'orderno', title: '订单号', width: 120, edit: 'text' }
+                        , { field: 'ordertime', title: '预订时间', width: 150, edit: 'text' }
+                        , { field: 'price', title: '机票价格', width: 100, sort: true, edit: 'text' }
+                        , { field: 'spacetype', title: '仓位', width: 80, edit: 'text', sort: true, edit: 'text' }
+                        , { field: 'fid', title: '航班id', width: 100, sort: true, edit: 'text' }
+                        , { field: 'uid', title: '用户id', edit: 'text' }
+                        , { field: 'num', title: '预订机票张数', width: 100, edit: 'text' }
+                        , { field: 'totalprice', title: '总价格', width: 120, edit: 'text' }
+                        , { field: 'contactname', title: '联系人姓名', width: 120, edit: 'text' }
+                        , { field: 'contactphone', title: '联系人电话', width: 120, edit: 'text' }
+                        , { field: 'idcard', title: '身份证号', width: 120, edit: 'text' }
+                        , { field: 'paystatus', title: '支付状态', width: 120, edit: 'text' }
+                        , { fixed: 'right', title: '操作栏', width: 178, align: 'center', toolbar: '#barDemo' }
+
+                    ]]
+                    , request: {
+                        pageName: 'page' //页码的参数名称，默认：page
+                        , limitName: 'size' //每页数据量的参数名，默认：limit
+                    }
+                    , page: true
+                    , response: {
+                        statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+                    }
+                });
+            });
+
+            layui.use('table', function () {
+                var table = layui.table;
+                //监听表格复选框选择
+                table.on('checkbox(test)', function (obj) {
+                    console.log(obj)
+                });
+                //监听工具条
+                table.on('tool(test)', function (obj) {
+
+                    var data = obj.data;
+                    if (obj.event === 'detail') {
+                        layer.msg('ID：' + data.userid + ' 的查看操作');
+                    } else if (obj.event === 'del') {
+                        var jaonatr = { "userid": data.userid };
+                        layer.confirm('真的删除行么', function (index) {
+                            obj.del();
+                            layer.close(index);
+                            $.ajax({
+                                url: "http://localhost:8181/user/deleteById",
+                                type: "DELETE",
+                                contentType: "application/json",//设置请求参数类型为json字符串
+                                data: JSON.stringify(jaonatr), //将json对象转换成json字符串发送
+                                dataType: "json",
+                                success: function (result) {
+                                },
+                            });
+                        });
+                    } else if (obj.event === 'edit') {
+                        layer.alert('编辑行：<br><h1>' + JSON.stringify(data) + '</h1>')
+                    }
+                });
+
+                table.on('edit(test)', function (obj) {
+                    var post_data = obj.data //得到所在行所有键值
+                    var json_str = JSON.stringify(post_data)
+                    console.log(json_str)
+                    $.ajax({//异步请求返回给后台
+                        url: 'http://localhost:8181/user/update',
+                        type: 'put',
+                        data: json_str,
+                        contentType: "application/json",//设置请求参数类型为json字符串
+                        success: function (data) {
+                            //这里获取到数据执行显示
+                            console.log(data)
+                            layer.msg("修改成功", {
+                                icon: 1
+                            });
+                        },
+                        error: function () {
+                            layer.alert("网络出错", {
+                                icon: 2
+                            });
+                        }
+                    });
+                });
+            });
+
+    </script>
+</body>
+
+</html>
