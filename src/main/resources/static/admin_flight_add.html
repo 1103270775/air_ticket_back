@@ -57,75 +57,126 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <ul class="layui-tab-title site-demo-title">
-                <li class="layui-this" style="width: 100px;">用户信息添加</li>
+                <li class="layui-this" style="width: 100px;">航班信息新增</li>
             </ul>
 
-            <div style="padding: 15px;">用户信息填写</div>
-
-            <form class="layui-form" action="">
-                <!-- 昵称 -->
+            <form class="layui-form" style="margin: 30px;">
+                <!-- 客机编号 -->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">昵称</label>
+                    <label class="layui-form-label" style="width: 160px;">客机编号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="nickname" required lay-verify="required" placeholder="请输入昵称" autocomplete="off"
-                            class="layui-input">
+                        <input style="width: 300px;" type="text" name="aircraftno" required lay-verify="required"
+                            placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <!-- 用户名 -->
+                <!-- 出发城市 -->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">用户名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名"
-                            autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <!-- 密码 -->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">用户密码</label>
+                    <label class="layui-form-label" style="width: 160px;">出发城市</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                        <input type="text" name="fromcity" required lay-verify="required" placeholder=""
                             autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">辅助文字</div>
                 </div>
-                <!-- 性别 -->
+                <!-- 到达城市 -->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="sex" value="男" title="男">
-                        <input type="radio" name="sex" value="女" title="女" checked>
-                    </div>
-                </div>
-                <!-- 联系电话 -->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">联系电话</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="phone" required lay-verify="required" placeholder="请输入联系电话"
+                    <label class="layui-form-label" style="width: 160px;">到达城市</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="tocity" required lay-verify="required" placeholder=""
                             autocomplete="off" class="layui-input">
                     </div>
+                    <div class="layui-form-mid layui-word-aux">辅助文字</div>
                 </div>
-                <!-- 邮箱 -->
+                <!-- 出发时间 -->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">邮箱</label>
+                    <label class="layui-form-label" style="width: 160px;">出发时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" required lay-verify="required" placeholder="请输入常用邮箱"
-                            autocomplete="off" class="layui-input">
+                        <div class="layui-inline">
+                            <!-- 注意：这一层元素并不是必须的 -->
+                            <input name="fromtime" type="text" class="layui-input" id="test1">
+                        </div>
                     </div>
                 </div>
-                <!-- 真实姓名 -->
+                <!-- 到达时间 -->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">真实姓名</label>
+                    <label class="layui-form-label" style="width: 160px;">到达时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="truename" required lay-verify="required" placeholder="请输入真实姓名"
-                            autocomplete="off" class="layui-input">
+                        <div class="layui-inline">
+                            <!-- 注意：这一层元素并不是必须的 -->
+                            <input name="totime" type="text" class="layui-input" id="test1">
+                        </div>
                     </div>
                 </div>
-                <!-- 身份证号 -->
+                <!-- 经济舱价格 -->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">身份证号</label>
+                    <label class="layui-form-label" style="width: 160px;">经济舱价格</label>
                     <div class="layui-input-block">
-                        <input type="text" name="idcard" required lay-verify="required" placeholder="请输入身份证号"
-                            autocomplete="off" class="layui-input">
+                        <input style="width: 160px;" type="text" name="ecprice" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 经济舱座位总数 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 160px;">经济舱座位总数</label>
+                    <div class="layui-input-block">
+                        <input style="width: 100px;" type="text" name="ectickettotal" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 经济舱座位剩余数 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 160px;">经济舱座位剩余数</label>
+                    <div class="layui-input-block">
+                        <input style="width: 100px;" type="text" name="ecticketremain" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 头等舱价格 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 160px;">头等舱价格</label>
+                    <div class="layui-input-block">
+                        <input style="width: 160px;" type="text" name="fcprice" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 头等舱座位总数 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 160px;">头等舱座位总数</label>
+                    <div class="layui-input-block">
+                        <input style="width: 100px;" type="text" name="fctickettotal" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 头等舱座位剩余数 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 160px;">头等舱座位剩余数</label>
+                    <div class="layui-input-block">
+                        <input style="width: 100px;" type="text" name="fcticketremain" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 航班类型 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 160px;">航班类型</label>
+                    <div class="layui-input-block">
+                        <input style="width: 100px;" type="text" name="flighttype" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 客机类型 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 160px;">客机类型</label>
+                    <div class="layui-input-block">
+                        <input style="width: 200px;" type="text" name="aircrafttype" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 所属航空公司 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 160px;">所属航空公司</label>
+                    <div class="layui-input-block">
+                        <input style="width: 280px;" type="text" name="cname" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -157,19 +208,31 @@
             console.log("hello");
             //监听提交
             form.on('submit(formDemo)', function (data) {
-                layer.msg(JSON.stringify(data.field));
+
                 console.log(JSON.stringify(data.field));
                 $.ajax({
-                    url: "http://localhost:8181/user/save",
+                    url: "http://localhost:8181/flight/save",
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify(data.field),
                     dataType: "json",
                     success: function (result) {
+                        layer.msg("新增成功", {
+                            icon: 1
+                        });
                         console.log(result);
                     },
                 });
                 return false;
+            });
+        });
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#test1' //指定元素
+                ,type: 'datetime'
             });
         });
     </script>
