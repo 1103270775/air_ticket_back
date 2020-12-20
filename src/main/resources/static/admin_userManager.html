@@ -43,7 +43,7 @@
                         <a href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
                             <dd><a href="admin_userManager.html">用户管理</a></dd>
-                            <dd><a href="javascript:;">用户添加</a></dd>
+                            <dd><a href="admin_user_add.html">用户添加</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item"><a href="">订单管理</a></li>
@@ -72,6 +72,9 @@
     </div>
 
     <script src="layui/layui.js"></script>
+    <!-- Jquery Js -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    
     <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -147,7 +150,6 @@
                     });
                 } else if (obj.event === 'edit') {
                     layer.alert('编辑行：<br><h1>' + JSON.stringify(data) + '</h1>')
-
                 }
             });
 
@@ -173,3 +175,30 @@
 </body>
 
 </html>
+<form class="layui-form" id="test" style="display:none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">航空公司名</label>
+        <div class="layui-input-block">
+            <input id="cname" type="text" name="cname" required lay-verify="required" placeholder="请输入公司名"
+                autocomplete="on" class="layui-input" style="width:200px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">logo图标url</label>
+        <div class="layui-input-block">
+            <input id="logourl" type="text" name="logourl" required lay-verify="required" placeholder="请输入url"
+                autocomplete="on" class="layui-input" style="width:360px">
+        </div>
+
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">description</label>
+            <div class="layui-input-block">
+                <textarea id="desc" lay-verify="required" name="description" placeholder="请输入公司描述"
+                    class="layui-textarea" style="width:360px"></textarea>
+            </div>
+        </div>
+
+
+</form>

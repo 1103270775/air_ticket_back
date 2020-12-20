@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>机票预订系统后台</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin ">
+        <div class="layui-header">
+            <img class="layui-logo" src="src/logo_admin.png"></img>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">注销</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">航空信息管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">航班管理</a></dd>
+                            <dd><a href="javascript:;">航班新增</a></dd>
+                            <dd><a href="javascript:;">航空公司管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="admin_userManager.html">用户管理</a></dd>
+                            <dd><a href="admin_user_add.html">用户添加</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="">订单管理</a></li>
+                    <li class="layui-nav-item"><a href="">消息中心</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <ul class="layui-tab-title site-demo-title">
+                <li class="layui-this" style="width: 100px;">用户添加列表</li>
+            </ul>
+
+            <div style="padding: 15px;">用户信息填写</div>
+
+            <form class="layui-form" action="">
+                <!-- 用户名 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 密码 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                </div>
+                <!-- 昵称 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">昵称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="nickname" required lay-verify="required" placeholder="请输入昵称"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 性别 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="sex" value="男" title="男">
+                        <input type="radio" name="sex" value="女" title="女" checked>
+                    </div>
+                </div>
+                <!-- 联系电话 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">联系电话</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phone" required lay-verify="required" placeholder="请输入联系电话"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 邮箱 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="email" required lay-verify="required" placeholder="请输入常用邮箱"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 真实姓名 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">真实姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="truename" required lay-verify="required" placeholder="请输入真实姓名"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 身份证号 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份证号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="idcard" required lay-verify="required" placeholder="请输入身份证号"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+            <!-- <div>
+                <div>
+                    <button onclick="submit()">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div> -->
+
+
+
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            底部固定区域
+        </div>
+    </div>
+    <script src="layui/layui.js"></script>
+    <!-- Jquery Js -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+        layui.use('form', function () {
+            var form = layui.form;
+            console.log("hello");
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+                console.log(JSON.stringify(data.field));
+                $.ajax({
+                    url: "http://localhost:8181/user/save",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(data.field),
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result);
+                    },
+                });
+                return false;
+            });
+        });
+    </script>
+</body>
+
+</html>
