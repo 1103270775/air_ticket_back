@@ -61,20 +61,19 @@
             </ul>
 
             <div style="padding: 15px;">用户信息填写</div>
-
             <form class="layui-form" action="">
                 <!-- 昵称 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label">昵称</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="nickname" required lay-verify="required" placeholder="请输入昵称" autocomplete="off"
-                            class="layui-input">
+                    <div class="layui-input-block" style="width: 300px;">
+                        <input type="text" name="nickname" required lay-verify="required" placeholder="请输入昵称"
+                            autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <!-- 用户名 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width: 300px;">
                         <input type="text" name="username" required lay-verify="required" placeholder="请输入用户名"
                             autocomplete="off" class="layui-input">
                     </div>
@@ -86,7 +85,7 @@
                         <input type="password" name="password" required lay-verify="required" placeholder="请输入密码"
                             autocomplete="off" class="layui-input">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                    <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
                 </div>
                 <!-- 性别 -->
                 <div class="layui-form-item">
@@ -99,7 +98,7 @@
                 <!-- 联系电话 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label">联系电话</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width: 300px;">
                         <input type="text" name="phone" required lay-verify="required" placeholder="请输入联系电话"
                             autocomplete="off" class="layui-input">
                     </div>
@@ -107,7 +106,7 @@
                 <!-- 邮箱 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width: 300px;">
                         <input type="text" name="email" required lay-verify="required" placeholder="请输入常用邮箱"
                             autocomplete="off" class="layui-input">
                     </div>
@@ -115,7 +114,7 @@
                 <!-- 真实姓名 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label">真实姓名</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width: 300px;">
                         <input type="text" name="truename" required lay-verify="required" placeholder="请输入真实姓名"
                             autocomplete="off" class="layui-input">
                     </div>
@@ -123,7 +122,7 @@
                 <!-- 身份证号 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label">身份证号</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="width: 300px;">
                         <input type="text" name="idcard" required lay-verify="required" placeholder="请输入身份证号"
                             autocomplete="off" class="layui-input">
                     </div>
@@ -136,13 +135,12 @@
                 </div>
             </form>
 
+    </div>
 
-        </div>
-
-        <div class="layui-footer">
-            <!-- 底部固定区域 -->
-            @air_ticket.com
-        </div>
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        @air_ticket.com
+    </div>
     </div>
     <script src="layui/layui.js"></script>
     <!-- Jquery Js -->
