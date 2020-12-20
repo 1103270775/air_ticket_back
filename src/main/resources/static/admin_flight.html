@@ -58,11 +58,7 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <ul class="layui-tab-title site-demo-title">
-                <li class="layui-this" style="width: 100px;">航空公司管理</li>
-                <div id="layerDemo" class="layui-inline">
-                    <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">新增</button>
-                </div>
-                
+                <li class="layui-this" style="width: 100px;">航空公司管理</li>   
             </ul>
             <table class="layui-hide" id="flight_list" lay-filter="test"></table>
         </div>
@@ -100,9 +96,21 @@
                 , cols: [[
                     { type: 'checkbox', fixed: 'left' }
                     , { field: 'fid', title: 'FID', width: 80, fixed: 'left', unresize: true, sort: true }
-                    , { field: 'aircraftno', title: '航空公司名称', width: 120, edit: 'text' }
-                    , { field: 'aircrafttype', title: 'logo图标url', width: 300, edit: 'text' }
-                    , { field: 'fromcity', title: '公司描述', width: 400 ,edit: 'text'}
+                    , { field: 'aircraftno', title: '客机编号', width: 120, edit: 'text' }
+                    , { field: 'fromcity', title: '出发城市', width: 80 ,edit: 'text'}
+                    , { field: 'tocity', title: '目的城市', width: 80 ,edit: 'text'}
+                    , { field: 'fromtime', title: '出发时间', width: 180 ,edit: 'text'}
+                    , { field: 'totime', title: '到达时间', width: 180 ,edit: 'text'}
+                    , { field: 'flytime', title: '飞行时间', width: 100 ,edit: 'text'}
+                    , { field: 'ecprice', title: '经济舱价格', width: 100 ,edit: 'text'}
+                    , { field: 'ectickettotal', title: '经济舱座位总数', width: 80 ,edit: 'text'}
+                    , { field: 'ecticketremain', title: '经济舱座位剩余数', width: 80 ,edit: 'text'}
+                    , { field: 'fcprice', title: '头等舱价格', width: 100 ,edit: 'text'}
+                    , { field: 'fctickettotal', title: '头等舱座位总数', width: 80 ,edit: 'text'}
+                    , { field: 'fcticketremain', title: '头等舱座位剩余数', width: 80 ,edit: 'text'}
+                    , { field: 'flighttype', title: '航班类型', width: 100 ,edit: 'text'}
+                    , { field: 'aircrafttype', title: '客机类型', width: 100, edit: 'text' }
+                    , { field: 'cname', title: '所属航空公司', width: 150 ,edit: 'text'}
                     , { fixed: 'right', width: 178, align: 'center', toolbar: '#barDemo' }
 
                 ]]
@@ -135,7 +143,7 @@
                         obj.del();
                         layer.close(index);
                         $.ajax({
-                            url: "http://localhost:8181/company/deleteById",
+                            url: "http://localhost:8181/flight/deleteById",
                             type: "DELETE",
                             contentType: "application/json",//设置请求参数类型为json字符串
                             data: JSON.stringify(json_str), //将json对象转换成json字符串发送
@@ -156,7 +164,7 @@
                 var json_str=JSON.stringify(post_data)
                 console.log(json_str)
                 $.ajax({//异步请求返回给后台
-                    url: 'http://localhost:8181/company/update',
+                    url: 'http://localhost:8181/flight/update',
                     type: 'put',
                     data: json_str,
                     contentType: "application/json",//设置请求参数类型为json字符串
@@ -196,67 +204,6 @@
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
             });
-        });
-
-        layui.use('layer', function () { //独立版的layer无需执行这一句
-            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-
-            //触发事件
-            var active = {
-                offset: function (othis) {
-                    var type = othis.data('type')
-                        , text = othis.text();
-
-                    layer.open({
-                        type: 1
-                        , title: ["航班信息新增"]
-                        , area: ["500px", "350px"]
-                        , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-                        , id: 'layerDemo' + type //防止重复弹出
-                        , content: $('#company_add_form')
-                        , btn: ["提交", "取消"]
-                        , btnAlign: 'c' //按钮居中
-                        , shade: 0 //不显示遮罩
-                        , yes: function () {
-
-                            var data = {};
-                            var form= $('form').serializeArray();
-                            $.each(form, function () {
-                                data[this.name] = this.value;
-                            });
-                            var json_str=JSON.stringify(data);
-                            console.log(json_str)
-                            $.ajax({
-                                            url: "http://localhost:8181/company/save",
-                                            type: "post",
-                                            contentType: "application/json",//设置请求参数类型为json字符串
-                                            data: json_str, //将json对象转换成json字符串发送
-                                            dataType: "json",
-                                            success: function (result) {
-                                            console.log(result)
-                                            layer.msg("新增成功",{
-                                                icon:1
-                                            })
-                                        
-                                            layer.closeAll();
-                                            //重新加载父页面
-									parent.location.reload();
-                                            },
-                                        });
-                        }
-                        , cancel: function () {
-                            //右上角关闭回调
-                            layer.closeAll();
-                        }
-                    });
-                }
-            };
-
-            $('#layerDemo .layui-btn').on('click', function () {
-                var othis = $(this), method = othis.data('method');
-                active[method] ? active[method].call(this, othis) : '';
-            });
-
         });
     </script>
 
