@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,36 +29,36 @@ public class TCompanyHandler {
     /**
      * 增加一条航空公司信息
      */
-    @GetMapping("/save")
-    public String save(@RequestBody TCompany tCompany){
+    @PostMapping("/save")
+    public CommonResult<Null> save(@RequestBody TCompany tCompany){
         TCompany result = tCompanyRepository.save(tCompany);
         if (result!=null){
-            return "success";
+            return new CommonResult<>(200, "success", 1, null);
         }else {
-            return "error";
+            return new CommonResult<>(200, "error", 1, null);
         }
     }
     @DeleteMapping("/deleteById")
-    public String deleteById(@RequestBody TCompany tCompany){
+    public CommonResult<Null> deleteById(@RequestBody TCompany tCompany){
         tCompanyRepository.deleteById(tCompany.getCid());
-        return "success";
+        return new CommonResult<>(200, "success", 1, null);
     }
     @PutMapping("/update")
-    public String update(@RequestBody TCompany tCompany){
+    public CommonResult<Null> update(@RequestBody TCompany tCompany){
         TCompany result = tCompanyRepository.save(tCompany);
         if(result!= null){
-            return "success";
+            return new CommonResult<>(200, "success", 1, null);
         }else{
-            return "error";
+            return new CommonResult<>(200, "error", 1, null);
         }
     }
     @GetMapping("/findById")
-    public TCompany findById(@RequestBody TCompany tCompany){
-        Optional<TCompany> result = tCompanyRepository.findById(tCompany.getCid());
+    public CommonResult<TCompany> findById(@RequestBody TCompany tCompany){
+        Optional<TCompany> result =  tCompanyRepository.findById(tCompany.getCid());
         if (result!=null) {
-            return result.get();
+            return new CommonResult<>(200, "success", 1, result.get());
         }else {
-            return null;
+            return new CommonResult<>(200, "error", 1, null);
         }
     }
     @GetMapping("/findAll")

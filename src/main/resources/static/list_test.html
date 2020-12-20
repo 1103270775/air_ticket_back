@@ -99,12 +99,12 @@
                 , totalRow: true
                 , cols: [[
                     { type: 'checkbox', fixed: 'left' }
-                    , { field: 'userid', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true }
+                    , { field: 'userid', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计行' }
                     , { field: 'username', title: '用户名', width: 120, edit: 'text' }
                     , { field: 'password', title: '邮箱', width: 150, edit: 'text' }
-                    , { field: 'nickname', title: '积分', width: 100, sort: true }
+                    , { field: 'nickname', title: '积分', width: 100, sort: true, totalRow: true }
                     , { field: 'sex', title: '性别', width: 80, edit: 'text', sort: true }
-                    , { field: 'phone', title: '登入次数', width: 100, sort: true }
+                    , { field: 'phone', title: '登入次数', width: 100, sort: true, totalRow: true }
                     , { field: 'email', title: '签名' }
                     , { field: 'truename', title: '城市', width: 100 }
                     , { field: 'idcard', title: 'IP', width: 120 }
@@ -119,14 +119,14 @@
                 , response: {
                     statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
                 }
-                // , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
-                //     return {
-                //         "code": 200,//res.status, //解析接口状态
-                //         "msg": "",//res.message, //解析提示文本
-                //         "count": 1000,//res.total, //解析数据长度
-                //         "data": res.content //解析数据列表
-                //     };
-                // }
+                , parseData: function (res) { //将原始数据解析成 table 组件所规定的数据
+                    return {
+                        "code": 200,//res.status, //解析接口状态
+                        "msg": "",//res.message, //解析提示文本
+                        "count": 1000,//res.total, //解析数据长度
+                        "data": res.content //解析数据列表
+                    };
+                }
             });
         });
 
@@ -158,39 +158,9 @@
                         });
                     });
                 } else if (obj.event === 'edit') {
-                    layer.alert('编辑行：<br><h1>' + JSON.stringify(data)+'</h1>')
-
+                    layer.alert('编辑行：<br>' + JSON.stringify(data))
                 }
             });
-
-            // //弹窗
-            // layui.use('layer', function () { //独立版的layer无需执行这一句
-            //     var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-
-            //     //触发事件
-            //     var active = {
-            //         offset: function (othis) {
-            //             var type = othis.data('type')
-            //                 , text = othis.text();
-            //             layer.open({
-            //                 type: 1
-            //                 , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-            //                 , id: 'layerDemo' + type //防止重复弹出
-            //                 , content: '<div style="padding: 20px 100px;"><h1>' + text + '</h1></div>'
-            //                 , btn: '关闭全部'
-            //                 , btnAlign: 'c' //按钮居中
-            //                 , shade: 0 //不显示遮罩
-            //                 , yes: function () {
-            //                     layer.closeAll();
-            //                 }
-            //             });
-            //         }
-            //     };
-            //     $('#layerDemo .layui-btn').on('click', function () {
-            //         var othis = $(this), method = othis.data('method');
-            //         active[method] ? active[method].call(this, othis) : '';
-            //     });
-            // });
 
             var $ = layui.$, active = {
                 getCheckData: function () { //获取选中数据
@@ -209,12 +179,11 @@
                 }
             };
 
-            // $('.demoTable .layui-btn').on('click', function () {
-            //     var type = $(this).data('type');
-            //     active[type] ? active[type].call(this) : '';
-            // });
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
         });
-
     </script>
 </body>
 
