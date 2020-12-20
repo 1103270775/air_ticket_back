@@ -1,5 +1,6 @@
 package com.ctgu.airticket.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,9 +29,16 @@ public class TFlight implements Serializable {
     private String fromcity;
     
     private String tocity;
-    
+    //日期转化类
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private Date fromtime;
-    
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss",
+            timezone = "GMT+8"
+    )
     private Date totime;
     
     private Integer ecprice;

@@ -61,7 +61,7 @@ public class TFlightHandler {
     }
     @GetMapping("/findAll")
     public CommonResult<List<TFlight>> findAll(@PathParam("page") Integer page, @PathParam("size") Integer size){
-        PageRequest request = PageRequest.of(page,size);
+        PageRequest request = PageRequest.of(page-1,size);
         List<TFlight> content = tFlightRepository.findAll(request).getContent();
         int count=(int)tFlightRepository.count();
         return new CommonResult<>(200, "航班信息列表", count, content);
