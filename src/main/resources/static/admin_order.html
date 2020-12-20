@@ -134,14 +134,14 @@
 
                     var data = obj.data;
                     if (obj.event === 'detail') {
-                        layer.msg('ID：' + data.userid + ' 的查看操作');
+                        layer.msg('ID：' + data.orderid + ' 的查看操作');
                     } else if (obj.event === 'del') {
-                        var jaonatr = { "userid": data.userid };
+                        var jaonatr = { "orderid": data.orderid };
                         layer.confirm('真的删除行么', function (index) {
                             obj.del();
                             layer.close(index);
                             $.ajax({
-                                url: "http://localhost:8181/user/deleteById",
+                                url: "http://localhost:8181/ticketorder/deleteById",
                                 type: "DELETE",
                                 contentType: "application/json",//设置请求参数类型为json字符串
                                 data: JSON.stringify(jaonatr), //将json对象转换成json字符串发送
