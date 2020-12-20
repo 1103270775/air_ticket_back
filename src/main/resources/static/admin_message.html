@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>机票预订系统后台</title>
+    <link rel="icon" href="src/icon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin ">
+        <div class="layui-header">
+            <a href="admin_flight.html"><img class="layui-logo" src="src/logo_admin.png"></img></a>
+
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="login.html">注销</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">航空信息管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="admin_flight.html">航班管理</a></dd>
+                            <dd><a href="admin_flight_add.html">航班新增</a></dd>
+                            <dd><a href="admin_company.html">航空公司管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="admin_userManager.html">用户管理</a></dd>
+                            <dd><a href="admin_user_add.html">用户添加</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="admin_order.html">订单管理</a></li>
+                    <li class="layui-nav-item"><a href="admin_message.html">消息中心</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <ul class="layui-tab-title site-demo-title">
+                <li class="layui-this" style="width: 100px;">消息中心</li>
+            </ul>
+            <div style="padding: 15px;">内容主体区域</div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            @air_ticket.com
+        </div>
+    </div>
+
+    <script src="layui/layui.js"></script>
+    <!-- Jquery Js -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <script>
+        JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+    </script>
+</body>
+
+</html>
