@@ -1,5 +1,6 @@
 package com.ctgu.airticket.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import javax.persistence.*;
 
@@ -23,7 +24,8 @@ public class TTicketorder implements Serializable {
     private Integer orderid;
     
     private String orderno;
-    
+    //日期格式化
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date ordertime;
     
     private Integer price;
