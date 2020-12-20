@@ -103,12 +103,12 @@
                     , { field: 'userid', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true }
                     , { field: 'username', title: '用户名', width: 120, edit: 'text' }
                     , { field: 'password', title: '密码', width: 150, edit: 'text' }
-                    , { field: 'nickname', title: '昵称', width: 100, sort: true }
-                    , { field: 'sex', title: '性别', width: 80, edit: 'text', sort: true }
-                    , { field: 'phone', title: '联系电话', width: 100, sort: true }
-                    , { field: 'email', title: '邮箱' }
-                    , { field: 'truename', title: '真实姓名', width: 100 }
-                    , { field: 'idcard', title: '身份证号', width: 120 }
+                    , { field: 'nickname', title: '昵称', width: 100, sort: true , edit: 'text'}
+                    , { field: 'sex', title: '性别', width: 80, edit: 'text', sort: true , edit: 'text'}
+                    , { field: 'phone', title: '联系电话', width: 100, sort: true, edit: 'text' }
+                    , { field: 'email', title: '邮箱' , edit: 'text'}
+                    , { field: 'truename', title: '真实姓名', width: 100, edit: 'text' }
+                    , { field: 'idcard', title: '身份证号', width: 120 , edit: 'text'}
                     , { fixed: 'right', title: '操作栏', width: 178, align: 'center', toolbar: '#barDemo' }
 
                 ]]
@@ -155,22 +155,29 @@
                 }
             });
 
-            var $ = layui.$, active = {
-                getCheckData: function () { //获取选中数据
-                    var checkStatus = table.checkStatus('idTest')
-                        , data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                }
-                , getCheckLength: function () { //获取选中数目
-                    var checkStatus = table.checkStatus('idTest')
-                        , data = checkStatus.data;
-                    layer.msg('选中了：' + data.length + ' 个');
-                }
-                , isAll: function () { //验证是否全选
-                    var checkStatus = table.checkStatus('idTest');
-                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
-                }
-            };
+            table.on('edit(test)', function (obj) {
+                var post_data = obj.data //得到所在行所有键值
+                var json_str = JSON.stringify(post_data)
+                console.log(json_str)
+                $.ajax({//异步请求返回给后台
+                    url: 'http://localhost:8181/user/update',
+                    type: 'put',
+                    data: json_str,
+                    contentType: "application/json",//设置请求参数类型为json字符串
+                    success: function (data) {
+                        //这里获取到数据执行显示
+                        console.log(data)
+                        layer.msg("修改成功", {
+                            icon: 1
+                        });
+                    },
+                    error: function () {
+                        layer.alert("网络出错", {
+                            icon: 2
+                        });
+                    }
+                });
+            });
         });
 
     </script>
