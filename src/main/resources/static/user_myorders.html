@@ -40,7 +40,7 @@
         <hr width="100%" style="border-bottom: 4px aqua solid;;;">
     </div>
 
-    
+
     <div class="layui-fluid">
         <div class="layui-row">
             <div class="layui-col-md2">
@@ -54,29 +54,110 @@
                     </ul>
                 </div>
             </div>
+
             <div class="layui-col-md10">
-                你的内容 9/12
+                <div class="layui-card">
+                    <div class="layui-card-header">我的订单</div>
+                    <div style="margin: 0;">
+                        <div class="layui-col-md12" style="padding-top: 20px;">
+                            <h2 style="border-bottom: 2px rgb(88, 88, 88) solid;">出行日期：2018-6-21</h2>
+                        </div>
+                        <div class="layui-col-md3">
+                            <p>服务单号：77025824102</br>
+                                预订时间：2018-06-20 12:41:50</p>
+                        </div>
+                        <div class="layui-col-md3">
+                            <p>联系姓名：肖远涛</br>
+                                用户账号：Windir</br>
+                                电话号码：1803344****</p>
+                        </div>
+                        <div class="layui-col-md3">
+                            <p>当前状态：已出行<br>
+                                订单编号：77025824102<br>
+                                订单金额：¥1000.00</p>
+                        </div>
+                        <div class="layui-col-md12">
+                            <p style="border-bottom: 2px rgb(88, 88, 88) solid;padding-bottom: 20px;">描述文字：<br></p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin: 0;">
+                    <div class="layui-col-md12" style="padding-top: 20px;">
+                        <h2 style="border-bottom: 2px rgb(88, 88, 88) solid;">出行日期：2018-6-21</h2>
+                    </div>
+                    <div class="layui-col-md3">
+                        <p>服务单号：77025824502</br>
+                            预订时间：2018-06-22 12:41:50</p>
+                    </div>
+                    <div class="layui-col-md3">
+                        <p>联系姓名：肖远涛</br>
+                            用户账号：Windir</br>
+                            电话号码：1803344****</p>
+                    </div>
+                    <div class="layui-col-md3">
+                        <p>当前状态：待出行<br>
+                            订单编号：77025824502<br>
+                            订单金额：¥1000.00</p>
+                    </div>
+                    <div class="layui-col-md12">
+                        <p style="border-bottom: 2px rgb(88, 88, 88) solid;padding-bottom: 20px;">描述文字：<br></p>
+                        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">退票</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
 
 
 
-    <!-- Jquery Js -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="layui/layui.js" charset="utf-8"></script>
 
-    <script>
-        layui.use('element', function () {
-            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 
-            //监听导航点击
-            element.on('nav(demo)', function (elem) {
-                //console.log(elem)
-                layer.msg(elem.text());
+        <!-- Jquery Js -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script src="layui/layui.js" charset="utf-8"></script>
+
+        <script>
+            layui.use('element', function () {
+                var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+                //监听导航点击
+                element.on('nav(demo)', function (elem) {
+                    //console.log(elem)
+                    layer.msg(elem.text());
+                });
             });
-        });
-    </script>
+            layui.use('layer', function () { //独立版的layer无需执行这一句
+                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+                var active = {
+                    offset: function (othis) {
+                        var type = othis.data('type')
+                            , text = othis.text();
+
+                        layer.open({
+                            type: 1
+                            , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                            , id: 'layerDemo' + type //防止重复弹出
+                            , content: '<div style="padding: 10px 40px;"><h2>您确定要退票吗？</h2></div>'
+                            , btn: ['确认退票', '取消']
+                            , btnAlign: 'c' //按钮居中
+                            , shade: 0 //不显示遮罩
+                            , yes: function () {//已支付--调用此函数
+                                // layer.closeAll();
+                            }
+                        });
+                    }
+                };
+
+                $('#layerDemo .layui-btn').on('click', function () {
+                    var othis = $(this), method = othis.data('method');
+                    active[method] ? active[method].call(this, othis) : '';
+                });
+
+            });
+
+        </script>
 </body>
 
 </html>
