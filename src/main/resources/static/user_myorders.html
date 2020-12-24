@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+
+<body style="background-color: rgba(226, 224, 224, 0.274);">
+
+    <!-- Head -->
+    <div class="head" style="margin-top: 5px;">
+        <div class="layui-row" style="height:80px">
+            <div class="layui-col-md8">
+                <img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img>
+            </div>
+            <div class="layui-col-md4">
+                <div style="display:inline;">你好，</div>
+                <div class="layui-fluid" style="display:inline;">
+                    <span class="layui-breadcrumb" lay-separator="|">
+                        <a href="">请登录</a>
+                        <a href="">免费注册</a>
+                    </span>
+                </div>
+
+                </ul>
+                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
+                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
+                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
+            </div>
+        </div>
+    </div>
+    <!-- 下划线 -->
+    <div>
+        <hr width="100%" style="border-bottom: 4px aqua solid;;;">
+    </div>
+
+    
+    <div class="layui-fluid">
+        <div class="layui-row">
+            <div class="layui-col-md2">
+                <div class="mybox" style="padding-top: 20px;">
+                    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo"
+                        style="background-color:rgba(128, 128, 128, 0.671)">
+                        <li class="layui-nav-item"><a href="user_my_message.html">个人信息</a></li>
+                        <li class="layui-nav-item"><a href="user_myorders.html">我的订单</a></li>
+                        <li class="layui-nav-item"><a href="">我的账户</a></li>
+                        <li class="layui-nav-item"><a href="">综合设置</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-col-md10">
+                你的内容 9/12
+            </div>
+        </div>
+
+
+
+
+    <!-- Jquery Js -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+
+    <script>
+        layui.use('element', function () {
+            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+            //监听导航点击
+            element.on('nav(demo)', function (elem) {
+                //console.log(elem)
+                layer.msg(elem.text());
+            });
+        });
+    </script>
+</body>
+
+</html>
