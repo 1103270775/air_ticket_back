@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Null;
 import javax.websocket.server.PathParam;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,5 +69,28 @@ public class TFlightHandler {
         int count=(int)tFlightRepository.count();
         return new CommonResult<>(200, "航班信息列表", count, content);
     }
+
+    /**
+     * @Author xzh
+     * 查询功能实现 限定城市+时间
+     */
+    @GetMapping("/findwhere")
+    public CommonResult<List<TFlight>> findWhere(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity,@PathParam("fromtime") String fromtime){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        Date lastdate = new Date();
+        try {
+            date = sdf.parse(fromtime+" 00:00:00");
+            lastdate = sdf.parse(fromtime+" 23:59:59");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<TFlight> content = tFlightRepository.findByFromcityAndTocityAndFromtimeBetween(fromcity, tocity,date,lastdate);
+        int count = content.size();
+//        return new CommonResult<>(200,"success",);
+        return new CommonResult<>(200, "航班信息列表", count, content);
+    }
+
 
 }
