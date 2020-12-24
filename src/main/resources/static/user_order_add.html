@@ -130,6 +130,10 @@
     <!-- 订单提交 -->
     <div style="width: 216px; margin-left: 40%;padding-top: 70px;padding-bottom: 50px;">
         <button type="button" class="layui-btn layui-btn-fluid">订单提交</button>
+
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">居中弹出</button>
+        </div>
     </div>
 
 
@@ -137,6 +141,7 @@
     <!-- Jquery Js -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="layui/layui.js" charset="utf-8"></script>
+
     <script>
         layui.use('laydate', function () {
             var laydate = layui.laydate;
@@ -145,6 +150,35 @@
             laydate.render({
                 elem: '#fromdate' //指定元素
             });
+        });
+
+        layui.use('layer', function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            var active = {
+                offset: function (othis) {
+                    var type = othis.data('type')
+                        , text = othis.text();
+
+                    layer.open({
+                        type: 1
+                        , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                        , id: 'layerDemo' + type //防止重复弹出
+                        , content: '<div style="padding: 20px 100px;">' + text + '</div>'
+                        , btn: ['已支付','取消支付']
+                        , btnAlign: 'c' //按钮居中
+                        , shade: 0 //不显示遮罩
+                        , yes: function () {
+                            layer.closeAll();
+                        }
+                    });
+                }
+            };
+
+            $('#layerDemo .layui-btn').on('click', function () {
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+
         });
 
     </script>
