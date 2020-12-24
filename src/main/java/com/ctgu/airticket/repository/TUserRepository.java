@@ -6,7 +6,7 @@ import sun.net.www.protocol.http.HttpURLConnection;
 /**
  *
  *
- * @author xzh
+ * @author xzh 111
  * @since 2020-12-18 18:50
  */
 public interface TUserRepository extends JpaRepository<TUser,Integer> {
