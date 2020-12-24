@@ -1,6 +1,7 @@
 package com.ctgu.airticket.controller;
 
 import com.ctgu.airticket.entity.TFlight;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 /**
  * @Author:Mr.zhou
@@ -19,17 +21,22 @@ import javax.websocket.server.PathParam;
  */
 @Controller
 public class ViewController {
+    @Autowired
+    TFlightHandler tFlightHandler;
+    @RequestMapping("/login")
+    public String toLogin(){
+        return "user_login";
+    }
+    @RequestMapping("/register")
+    public String toRegister(){
+        return "user_register";
+    }
     @RequestMapping("/index")
-    public String toIndex(){
+    public String toIndex(Model model){
+
+        List<TFlight> todayTflights = tFlightHandler.findTodayTflights();
+        model.addAttribute("todaytFlightList", todayTflights);
         return "user_index";
     }
-    @RequestMapping("/toSearch.do")
-    public String toSearch(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity, @PathParam("date") String date, Model model){
-        TFlight tFlight=new TFlight();
-        tFlight.setFromcity(fromcity);
-        tFlight.setTocity(tocity);
-        model.addAttribute("tflight",tFlight);
-        model.addAttribute("fromdate", date);
-        return "user_search_test";
-    }
+    
 }

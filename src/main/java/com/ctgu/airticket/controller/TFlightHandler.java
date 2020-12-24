@@ -8,12 +8,15 @@ import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Null;
 import javax.websocket.server.PathParam;
+import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -75,9 +78,23 @@ public class TFlightHandler {
      * @Author xzh
      * 查询功能实现 限定城市+时间
      */
-    @GetMapping("/searchBy")
-    public CommonResult<List<TFlight>> searchBy(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity,@PathParam("fromdate") String fromdate){
-
+//    @GetMapping("/searchBy")
+//    public CommonResult<List<TFlight>> searchBy(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity,@PathParam("fromdate") String fromdate){
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date date = new Date();
+//        Date lastdate = new Date();
+//        try {
+//            date = sdf.parse(fromdate+" 00:00:00");
+//            lastdate = sdf.parse(fromdate+" 23:59:59");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+////        return new CommonResult<>(200,"success",);
+//        return new CommonResult<>(200, "航班信息列表", count, content);
+//    }
+    @RequestMapping("/toSearch.do")
+    public String toSearch(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity, @PathParam("fromdate") String fromdate, Model model){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         Date lastdate = new Date();
@@ -87,11 +104,25 @@ public class TFlightHandler {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        List<TFlight> content = tFlightRepository.findByFromcityAndTocityAndFromtimeBetween(fromcity, tocity,date,lastdate);
-        int count = content.size();
-//        return new CommonResult<>(200,"success",);
-        return new CommonResult<>(200, "航班信息列表", count, content);
+        List<TFlight> tFlightList = tFlightRepository.findByFromcityAndTocityAndFromtimeBetween(fromcity, tocity,date,lastdate);
+        model.addAttribute("tflightlist",tFlightList);
+        return "user_search_test";
     }
-
+    public List<TFlight> findTodayTflights(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date nowDate = new Date();
+//        Date firstTime=null;
+//        Date lastTime=null;
+//        String fromdate=sdf.format(nowDate).substring(0, 10);
+//        try {
+//            firstTime = sdf.parse(fromdate+" 00:00:00");
+//            lastTime = sdf.parse(fromdate+" 23:59:59");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        List<TFlight> tFlightList = tFlightRepository.findTFlightsByFromtimeAfter(nowDate);
+        System.out.println(tFlightList);
+        return tFlightList;
+    }
 
 }
