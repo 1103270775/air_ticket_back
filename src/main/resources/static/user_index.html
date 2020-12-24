@@ -40,17 +40,20 @@
             <div class="layui-col-md8">
                 <img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img>
             </div>
-            <div class="layui-col-md4">
-                <div style="display:inline;">你好，</div>
+            <div  class="layui-col-md4">
                 <div class="layui-fluid" style="display:inline;">
+                    <div th:if="${session.nickName} eq null" style="display:inline;">你好，</div>
+                    <div th:if="${session.nickName} ne null" style="display:inline;">欢迎回来，</div>
                     <span class="layui-breadcrumb" lay-separator="|">
-                        <a href="/login">请登录</a>
-                        <a href="/register">免费注册</a>
+                        <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
+                        <a th:if="${session.nickName} eq null"  href="/login">请登录</a>
+                        <a th:if="${session.nickName} eq null" href="/register">免费注册</a>
+
                     </span>
                 </div>
 
                 </ul>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
+                <a href="/myInfo" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
                 <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
                 <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
             </div>
@@ -66,7 +69,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <form class="layui-form" action="/toSearch.do" method="GET">
+                    <form class="layui-form" action="/search" method="GET">
                         <div class="layui-form-item">
                             <div class="layui-input-block">
                                 <input type="radio" name="tp" value="单程" title="单程" checked>
@@ -107,7 +110,7 @@
                                     <div class="layui-input-block">
                                         <div class="layui-inline">
                                             <!-- 注意：这一层元素并不是必须的 -->
-                                            <input type="text" name="date" class="layui-input" id="dateform">
+                                            <input type="text" name="fromdate" class="layui-input" id="dateform">
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +166,7 @@
             <div th:each="tFlight:${todaytFlightList}" class="content02">
                 <div style="display:flex;margin: 10px;">
                     <div th:text="${tFlight.fromcity}">上海</div>
-                    <img width="20px" src="./src/箭头.png" >
+                    <img width="20px" src="src/jiantou.png" >
                     <div th:text="${tFlight.tocity}">北京</div></div>
                 
                 <div style="margin: 5px 10px;">12月24日</div>

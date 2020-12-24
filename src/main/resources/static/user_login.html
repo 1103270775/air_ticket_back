@@ -64,7 +64,7 @@
     <!-- Footer -->
     <div class="layui-row">
         <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
-            
+
         </div>
     </div>
     <!-- Footer End -->
@@ -94,42 +94,33 @@
                 </div>
                 <div class="layui-col-sm12 layui-col-md12">
                     <div class="layui-row" style="display: flex;">
-                        <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
-                            <div class="layui-form-item">
-                                <input type="text" name="vercode" id="vercode" lay-verify="required|vercodes"
-                                    autocomplete="off" placeholder="验证码" class="layui-input" maxlength="4">
-                                <i class="layui-icon layui-icon-vercode zyl_lofo_icon"></i>
-                            </div>
-                        </div>
-                        <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
-                            <div class="zyl_lofo_vercode zylVerCode" onclick="zylVerCode()"></div>
-                        </div>
-                    <div class="layui-col-xs4 layui-col-sm4 layui-col-md4" style="line-height: 36px;" ><a href="/login">免费注册</a></div>
+                        <div class="layui-col-xs4 layui-col-sm4 layui-col-md4" style="line-height: 36px;"><a
+                                href="/login">免费注册</a></div>
                     </div>
                 </div>
                 <div class="layui-col-sm12 layui-col-md12">
-                    <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="demo1">立即登录</button>
+                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="login_btn">立即登录</button>
                 </div>
             </form>
         </div>
-        
-            <div style="height: 50px; display:flex;margin: 30px auto; justify-content: center;">
-                <img width="30px" style="margin: 10px" src="./src/qq.png">
-                <img width="30px" style="margin: 10px" src="./src/wechat.png">
-                <img width="30px" style="margin: 10px" src="./src/weibo.png">
-                <h4 style="line-height: 50px;">快速登录</h4>
-            </div>
+
+        <div style="height: 50px; display:flex;margin: 30px auto; justify-content: center;">
+            <img width="30px" style="margin: 10px" src="./src/qq.png">
+            <img width="30px" style="margin: 10px" src="./src/wechat.png">
+            <img width="30px" style="margin: 10px" src="./src/weibo.png">
+            <h4 style="line-height: 50px;">快速登录</h4>
         </div>
-    
+    </div>
+
     <!-- LoginForm End -->
 
-<!-- Footer -->
-<div class="layui-row" style="line-height: 80px;">
-    <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
-        © 2020 - 智联机票在线预定 || airticket.com版权所有
+    <!-- Footer -->
+    <div class="layui-row" style="line-height: 80px;">
+        <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
+            © 2020 - 智联机票在线预定 || airticket.com版权所有
+        </div>
     </div>
-</div>
-<!-- Footer End -->
+    <!-- Footer End -->
     <!-- Jquery Js -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- Layui Js -->
@@ -143,31 +134,29 @@
             var carousel = layui.carousel
                 , form = layui.form;
 
-            //自定义验证规则
-            form.verify({
-                // userName: function (value) {
-                // 	if (value.length < 5) {
-                // 		return '账号至少得5个字符';
-                // 	}
-                // }
-                // , pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
-                vercodes: function (value) {
-                    //获取验证码
-                    var zylVerCode = $(".zylVerCode").html();
-                    var v=value.upper;
-                    var z=zylVerCode.upper;
-                    if (v != z) {
-                        return '验证码错误（不区分大小写）';
-                    }
-                }
-                //页面发送请求跳转
-                , content: function (value) {
-                    layedit.sync(editIndex);
-                }
-            });
+            // //自定义验证规则
+            // form.verify({
+            //     // userName: function (value) {
+            //     // 	if (value.length < 5) {
+            //     // 		return '账号至少得5个字符';
+            //     // 	}
+            //     // }
+            //     // , pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
+            //     vercodes: function (value) {
+            //         //获取验证码
+            //         var zylVerCode = $(".zylVerCode").html();
+            //         if (value != zylVerCode) {
+            //             return '验证码错误（不区分大小写）';
+            //         }
+            //     }
+            //     //页面发送请求跳转
+            //     , content: function (value) {
+            //         layedit.sync(editIndex);
+            //     }
+            // });
 
             //监听提交
-            form.on('submit(demo1)', function (data) {
+            form.on('submit(login_btn)', function (data) {
 
                 var jsonstr = { "username": data.field.username, "password": data.field.password };
                 $.ajax({
@@ -177,54 +166,56 @@
                     dataType: "json",
                     data: JSON.stringify(jsonstr),
                     success: function (result) {
-                        if (result) {
+                        console.log(result)
+                        if (result == true) {
                             //页面跳转
-                            window.location.href = "background_template.html";
-                        } else {
-                            layer.alert("<h1>密码错误，请重新输入</h1>")
+                            window.location.href = "/index";
                         }
-                    }
-                })
-                return false;
-            });
-
-
-            //设置轮播主体高度
-            var zyl_login_height = $(window).height() / 1.3;
-            var zyl_car_height = $(".zyl_login_height").css("cssText", "height:" + zyl_login_height + "px!important");
-
-
-            //Login轮播主体
-            carousel.render({
-                elem: '#zyllogin'//指向容器选择器
-                , width: '100%' //设置容器宽度
-                , height: 'zyl_car_height'
-                , arrow: 'always' //始终显示箭头
-                , anim: 'fade' //切换动画方式
-                , autoplay: true //是否自动切换false true
-                , arrow: 'hover' //切换箭头默认显示状态||不显示：none||悬停显示：hover||始终显示：always
-                , indicator: 'none' //指示器位置||外部：outside||内部：inside||不显示：none
-                , interval: '5000' //自动切换时间:单位：ms（毫秒）
-            });
-
-            //监听轮播--案例暂未使用
-            carousel.on('change(zyllogin)', function (obj) {
-                var loginCarousel = obj.index;
-            });
-
-            //粒子线条
-            $(".zyl_login_cont").jParticle({
-                background: "rgba(0,0,0,0)",//背景颜色
-                color: "#fff",//粒子和连线的颜色
-                particlesNumber: 100,//粒子数量
-                //disableLinks:true,//禁止粒子间连线
-                //disableMouse:true,//禁止粒子间连线(鼠标)
-                particle: {
-                    minSize: 1,//最小粒子
-                    maxSize: 3,//最大粒子
-                    speed: 30,//粒子的动画速度
+                        else{
+                            layer.msg("用户名或密码错误，请重新输入", { icon: 2 })
+                        }
                 }
-            });
+                })
+            return false;
+        });
+
+
+        //设置轮播主体高度
+        var zyl_login_height = $(window).height() / 1.3;
+        var zyl_car_height = $(".zyl_login_height").css("cssText", "height:" + zyl_login_height + "px!important");
+
+
+        //Login轮播主体
+        carousel.render({
+            elem: '#zyllogin'//指向容器选择器
+            , width: '100%' //设置容器宽度
+            , height: 'zyl_car_height'
+            , arrow: 'always' //始终显示箭头
+            , anim: 'fade' //切换动画方式
+            , autoplay: true //是否自动切换false true
+            , arrow: 'hover' //切换箭头默认显示状态||不显示：none||悬停显示：hover||始终显示：always
+            , indicator: 'none' //指示器位置||外部：outside||内部：inside||不显示：none
+            , interval: '5000' //自动切换时间:单位：ms（毫秒）
+        });
+
+        //监听轮播--案例暂未使用
+        carousel.on('change(zyllogin)', function (obj) {
+            var loginCarousel = obj.index;
+        });
+
+        //粒子线条
+        $(".zyl_login_cont").jParticle({
+            background: "rgba(0,0,0,0)",//背景颜色
+            color: "#fff",//粒子和连线的颜色
+            particlesNumber: 100,//粒子数量
+            //disableLinks:true,//禁止粒子间连线
+            //disableMouse:true,//禁止粒子间连线(鼠标)
+            particle: {
+                minSize: 1,//最小粒子
+                maxSize: 3,//最大粒子
+                speed: 30,//粒子的动画速度
+            }
+        });
 
         });
 

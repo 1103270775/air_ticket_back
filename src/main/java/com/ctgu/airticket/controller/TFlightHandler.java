@@ -93,8 +93,11 @@ public class TFlightHandler {
 ////        return new CommonResult<>(200,"success",);
 //        return new CommonResult<>(200, "航班信息列表", count, content);
 //    }
-    @RequestMapping("/toSearch.do")
-    public String toSearch(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity, @PathParam("fromdate") String fromdate, Model model){
+    /**
+     * @Author Mr.zhou
+     * 查询功能实现 限定城市+时间
+     */
+    public List<TFlight> findByCityandDate(String fromcity, String tocity, String fromdate){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         Date lastdate = new Date();
@@ -105,8 +108,7 @@ public class TFlightHandler {
             e.printStackTrace();
         }
         List<TFlight> tFlightList = tFlightRepository.findByFromcityAndTocityAndFromtimeBetween(fromcity, tocity,date,lastdate);
-        model.addAttribute("tflightlist",tFlightList);
-        return "user_search_test";
+        return tFlightList;
     }
     public List<TFlight> findTodayTflights(){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
