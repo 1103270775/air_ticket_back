@@ -34,167 +34,171 @@
                 <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
             </div>
         </div>
+        <div>
+            <hr width="100%" style="border-bottom: 4px aqua solid;;;">
+        </div>
 
-
-        <!-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <!-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
         <legend>信息流 - 滚动加载</legend>
     </fieldset> -->
-        <form class="layui-form" action="">
+    <form class="layui-form" action="">
 
-            <div class="layui-fluid">
-                <div class="layui-row layui-col-space10">
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space10">
 
-                    <div class="layui-col-md2">
-                        <label class="layui-form-label">出发地</label>
-                        <div class="layui-input-block">
-                            <input type="text" style="width: 150px;" name="fromcity" placeholder="请输入出发地" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-col-md1">
-                        <img src="src/箭头.png" style="margin-left: 25px;padding-bottom: 30px;"></img>
-                    </div>
-
-                    <div class="layui-col-md2">
-                        <label class="layui-form-label">目的地</label>
-                        <div class="layui-input-block">
-                            <input type="text" style="width: 200px;" name="tocity" placeholder="请输入目的地" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-col-md4">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">日期</label>
-                            <input type="text" style="width: 200px;" class="layui-input" id="fromdate">
-                        </div>
-                    </div>
-
-                    <div class="layui-col-md3">
-                        <button type="button" class="layui-btn layui-btn-normal">搜索</button>
-                    </div>
-
-                </div>
-
-            </div>
-        </form>
-
-
-
-        <!-- 大容器框架 -->
-        <div class="layui-container"
-            style="background-color: rgba(240, 240, 240, 0.808);width: 1100px;height: 200px;padding: 0;">
-            <!-- 小容器框架 -->
-            <div class="layui-row" style="background-color: rgba(255, 255, 255, 0.801);padding-top: 50px;">
-                <div class="layui-col-md2" style="padding-left: 20px;margin-bottom: 40px;">
-                    <div class="layui-col-md12">
-                        <h2>东方航空</h2>
-                    </div>
-                    <div class="layui-col-md9">
-                        <p style="font-size: 12px;">MU501 空客321（中）</p>
-                    </div>
-                </div>
                 <div class="layui-col-md2">
-                    <div class="layui-col-md12">
-                        <h2>08:35</h2>
-                    </div>
-                    <div class="layui-col-md9">
-                        <h4>浦东国际机场T1</h4>
-                    </div>
-                </div>
-                <div class="layui-col-md2">
-                    <img src="src/箭头.png"></img>
-                </div>
-                <div class="layui-col-md2">
-                    <div class="layui-col-md12">
-                        <h2>11:35</h2>
-                    </div>
-                    <div class="layui-col-md9">
-                        <h4>香港国际机场T1</h4>
+                    <label class="layui-form-label">出发地</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width: 150px;" name="fromcity" placeholder="请输入出发地" autocomplete="off"
+                            class="layui-input">
                     </div>
                 </div>
+
+                <div class="layui-col-md1">
+                    <img src="src/箭头.png" style="margin-left: 25px;padding-bottom: 30px;"></img>
+                </div>
+
                 <div class="layui-col-md2">
-                    <div class="layui-col-md12">
-                        <h3>2小时:55分</h3>
+                    <label class="layui-form-label">目的地</label>
+                    <div class="layui-input-block">
+                        <input type="text" style="width: 200px;" name="tocity" placeholder="请输入目的地" autocomplete="off"
+                            class="layui-input">
                     </div>
                 </div>
-                <div class="layui-col-md2">
-                    <div class="layui-col-md12">
-                        <h4>航班详情</h4>
+
+                <div class="layui-col-md4">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">日期</label>
+                        <input type="text" style="width: 200px;" class="layui-input" id="fromdate">
                     </div>
                 </div>
-            </div>
-            <!-- 经济舱 -->
-            <div class="layui-row"
-                style="background-color: rgba(204, 204, 204, 0.377);height: 80px;border-bottom: 2px white solid;;;">
-                <div class="layui-col-md8" style="padding-left: 20px;">
-                    <h2 style="line-height: 80px;">经济舱</h2>
+
+                <div class="layui-col-md3">
+                    <button type="button" class="layui-btn layui-btn-normal">搜索</button>
                 </div>
-                <div class="layui-col-md2">
-                    <h2 style="line-height: 80px;">￥1040</h2>
-                </div>
-                <div class="layui-col-md2">
-                    <button type="button" class="layui-btn layui-btn-normal" style="margin-top: 20px;">预定</button>
-                </div>
-            </div>
-            <!-- 头等舱 -->
-            <div class="layui-row" style="background-color: rgba(204, 204, 204, 0.377);height: 80px;">
-                <div class="layui-col-md8" style="padding-left: 20px;">
-                    <h2 style="line-height: 80px;">头等舱</h2>
-                </div>
-                <div class="layui-col-md2">
-                    <h2 style="line-height: 80px;">￥2040</h2>
-                </div>
-                <div class="layui-col-md2">
-                    <button type="button" class="layui-btn layui-btn-normal" style="margin-top: 20px;">预定</button>
-                </div>
+
             </div>
 
         </div>
-        <!-- <ul class="flow-default" id="LAY_demo1"></ul> -->
-
-        <!-- Jquery Js -->
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script src="layui/layui.js" charset="utf-8"></script>
-        <script>
-            layui.use('laydate', function () {
-                    var laydate = layui.laydate;
-
-                    //执行一个laydate实例
-                    laydate.render({
-                        elem: '#fromdate' //指定元素
-                    });
-                });
-
-            layui.use('flow', function () {
-                
-                var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
-                var flow = layui.flow;
-                flow.load({
-                    elem: '#LAY_demo1' //指定列表容器
-                    , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
-                        var lis = [];
-                        //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+    </form>
 
 
 
-                        $.get('http://localhost:8181/flight/searchBy?fromcity=北京&tocity=杭州&fromdate=2020-06-18&page=' + page, function (res) {
-                            //假设你的列表返回在data集合中
-                            layui.each(res.data, function (index, item) {
-                                lis.push("<div class='list-group'><a href='#' class='list-group-item' onclick='details(" + item.fid + ")'>" +
-                                    "<h4 class='list-group-item-heading'>" + item.fromcity + "</h4><p class='list-group-item-text'>"
-                                    + item.tocity + "   |   " + item.ecprice + "   |   " + item.fcprice +
-                                    "</p></a>" +
-                                    "</div>");
-                            });
+    <!-- 大容器框架 -->
+    <div class="layui-container"
+        style="background-color: rgba(240, 240, 240, 0.808);width: 1100px;height: 200px;padding: 0;">
+        <!-- 小容器框架 -->
+        <div class="layui-row" style="background-color: rgba(255, 255, 255, 0.801);padding-top: 50px;">
+            <div class="layui-col-md2" style="padding-left: 20px;margin-bottom: 40px;">
+                <div class="layui-col-md12">
+                    <h2>东方航空</h2>
+                </div>
+                <div class="layui-col-md9">
+                    <p style="font-size: 12px;">MU501 空客321（中）</p>
+                </div>
+            </div>
+            <div class="layui-col-md2">
+                <div class="layui-col-md12">
+                    <h2>08:35</h2>
+                </div>
+                <div class="layui-col-md9">
+                    <h4>浦东国际机场T1</h4>
+                </div>
+            </div>
+            <div class="layui-col-md2">
+                <img src="src/箭头.png"></img>
+            </div>
+            <div class="layui-col-md2">
+                <div class="layui-col-md12">
+                    <h2>11:35</h2>
+                </div>
+                <div class="layui-col-md9">
+                    <h4>香港国际机场T1</h4>
+                </div>
+            </div>
+            <div class="layui-col-md2">
+                <div class="layui-col-md12">
+                    <h3>2小时:55分</h3>
+                </div>
+            </div>
+            <div class="layui-col-md2">
+                <div class="layui-col-md12">
+                    <h4>航班详情</h4>
+                </div>
+            </div>
+        </div>
+        <!-- 经济舱 -->
+        <div class="layui-row"
+            style="background-color: rgba(204, 204, 204, 0.377);height: 80px;border-bottom: 2px white solid;;;">
+            <div class="layui-col-md8" style="padding-left: 20px;">
+                <h2 style="line-height: 80px;">经济舱</h2>
+            </div>
+            <div class="layui-col-md2">
+                <h2 style="line-height: 80px;">￥1040</h2>
+            </div>
+            <div class="layui-col-md2">
+                <button type="button" class="layui-btn layui-btn-normal" style="margin-top: 20px;">预定</button>
+            </div>
+        </div>
+        <!-- 头等舱 -->
+        <div class="layui-row" style="background-color: rgba(204, 204, 204, 0.377);height: 80px;">
+            <div class="layui-col-md8" style="padding-left: 20px;">
+                <h2 style="line-height: 80px;">头等舱</h2>
+            </div>
+            <div class="layui-col-md2">
+                <h2 style="line-height: 80px;">￥2040</h2>
+            </div>
+            <div class="layui-col-md2">
+                <button type="button" class="layui-btn layui-btn-normal" style="margin-top: 20px;">预定</button>
+            </div>
+        </div>
 
-                            //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                            //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-                            next(lis.join(''), page < res.pages);
-                        });
-                    }
-                });
+    </div>
+    <!-- <ul class="flow-default" id="LAY_demo1"></ul> -->
+
+    <!-- Jquery Js -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script>
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#fromdate' //指定元素
             });
-        </script>
+        });
+
+        layui.use('flow', function () {
+
+            var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+            var flow = layui.flow;
+            flow.load({
+                elem: '#LAY_demo1' //指定列表容器
+                , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+                    var lis = [];
+                    //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+
+
+
+                    $.get('http://localhost:8181/flight/searchBy?fromcity=北京&tocity=杭州&fromdate=2020-06-18&page=' + page, function (res) {
+                        //假设你的列表返回在data集合中
+                        layui.each(res.data, function (index, item) {
+                            lis.push("<div class='list-group'><a href='#' class='list-group-item' onclick='details(" + item.fid + ")'>" +
+                                "<h4 class='list-group-item-heading'>" + item.fromcity + "</h4><p class='list-group-item-text'>"
+                                + item.tocity + "   |   " + item.ecprice + "   |   " + item.fcprice +
+                                "</p></a>" +
+                                "</div>");
+                        });
+
+                        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                        next(lis.join(''), page < res.pages);
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
