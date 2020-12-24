@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Null;
 import java.util.List;
 
 /**
@@ -35,14 +38,24 @@ public class TUserHandler {
     }
 
     @PostMapping("/save")
-    public String save(@RequestBody TUser tUser){
+    public CommonResult<Null> save(@RequestBody TUser tUser){
         TUser result = tUserRepository.save(tUser);
         if(result != null){
-            return "success";
+            return new CommonResult<>(200, "success", 1, null);
         }else{
-            return "error";
+            return new CommonResult<>(200, "error", 0, null);
         }
     }
+    @PostMapping("/register")
+    public CommonResult<Null> register(@RequestBody TUser tUser){
+        TUser result = tUserRepository.save(tUser);
+        if(result != null){
+            return new CommonResult<>(200, "success", 1, null);
+        }else{
+            return new CommonResult<>(200, "error", 0, null);
+        }
+    }
+
 
     @PutMapping("/update")
     public String update(@RequestBody TUser tUser){
@@ -56,9 +69,13 @@ public class TUserHandler {
     }
 
     @PostMapping("/login")
-    public boolean login(@RequestBody TUser tUser){
+    public boolean login(@RequestBody TUser tUser, HttpServletRequest request){
         TUser result = tUserRepository.findByUsernameAndPassword(tUser.getUsername(),tUser.getPassword());
         if(result!=null){
+            HttpSession session = request.getSession();
+            session.setAttribute("userid", result.getUserid());
+            session.setAttribute("userName", result.getUsername());
+            session.setAttribute("nickName", result.getNickname());
             return true;
         }else{
             return false;

@@ -4,6 +4,7 @@ import com.ctgu.airticket.entity.TCompany;
 import com.ctgu.airticket.entity.TFlight;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 
@@ -22,5 +23,5 @@ import java.util.List;
  */
 public interface TFlightRepository extends JpaRepository<TFlight,Integer> {
     public List<TFlight> findByFromcityAndTocityAndFromtimeBetween(String fromcity, String tocity, Date fromtime, Date latstime);
-
+    public List<TFlight> findTFlightsByFromtimeAfter(Date date);
 }

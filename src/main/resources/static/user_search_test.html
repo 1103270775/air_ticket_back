@@ -16,6 +16,7 @@
     <h1 th:text="${tflight.fromcity}"></h1>
     <h1 th:text="${tflight.tocity}"></h1>
     <h1 th:text="${fromdate}"></h1>
+    <h2 id="hello"></h2>
 </body>
 <script th:inline="javascript">
     var fromcity = [[${ tflight.fromcity }]];
@@ -29,6 +30,8 @@
         data: "",
         success: function (result) {
             console.log(result);
+            $("#hello").text=result.data[0].cname;
+            console.log(result.data[0].cname);
         },
     });
 </script>
