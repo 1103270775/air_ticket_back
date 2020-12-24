@@ -4,6 +4,7 @@ import com.ctgu.airticket.entity.CommonResult;
 import com.ctgu.airticket.entity.TFlight;
 import com.ctgu.airticket.entity.TUser;
 import com.ctgu.airticket.repository.TFlightRepository;
+import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,15 +75,15 @@ public class TFlightHandler {
      * @Author xzh
      * 查询功能实现 限定城市+时间
      */
-    @GetMapping("/findwhere")
-    public CommonResult<List<TFlight>> findWhere(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity,@PathParam("fromtime") String fromtime){
+    @GetMapping("/searchBy")
+    public CommonResult<List<TFlight>> searchBy(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity,@PathParam("fromdate") String fromdate){
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         Date lastdate = new Date();
         try {
-            date = sdf.parse(fromtime+" 00:00:00");
-            lastdate = sdf.parse(fromtime+" 23:59:59");
+            date = sdf.parse(fromdate+" 00:00:00");
+            lastdate = sdf.parse(fromdate+" 23:59:59");
         } catch (ParseException e) {
             e.printStackTrace();
         }
