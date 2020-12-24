@@ -73,7 +73,7 @@ public class TUserHandler {
         TUser result = tUserRepository.findByUsernameAndPassword(tUser.getUsername(),tUser.getPassword());
         if(result!=null){
             HttpSession session = request.getSession();
-            session.setAttribute("userid", result.getUserid());
+            session.setAttribute("userId", result.getUserid());
             session.setAttribute("userName", result.getUsername());
             session.setAttribute("nickName", result.getNickname());
             return true;
