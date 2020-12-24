@@ -129,13 +129,14 @@
 
     <!-- 订单提交 -->
     <div style="width: 216px; margin-left: 40%;padding-top: 70px;padding-bottom: 50px;">
-        <button type="button" class="layui-btn layui-btn-fluid">订单提交</button>
+        <!-- <button type="button" class="layui-btn layui-btn-fluid">订单提交</button> -->
 
         <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">居中弹出</button>
+            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">订单提交</button>
         </div>
     </div>
 
+    <!-- <div style="padding: 20px 100px;"><h2>订单生成成功，请使用微信或者支付宝支付该订单</h2><img src="src/二维码.png" style="width: ;"></img></div> -->
 
 
     <!-- Jquery Js -->
@@ -163,7 +164,7 @@
                         type: 1
                         , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                         , id: 'layerDemo' + type //防止重复弹出
-                        , content: '<div style="padding: 20px 100px;">' + text + '</div>'
+                        , content: '<div style="padding: 10px 40px;"><h3>请使用微信或者支付宝支付该订单</h3><img src="src/二维码.png"></img></div>'
                         , btn: ['已支付','取消支付']
                         , btnAlign: 'c' //按钮居中
                         , shade: 0 //不显示遮罩
