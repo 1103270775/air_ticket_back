@@ -3,11 +3,18 @@ package com.ctgu.airticket.controller;
 import com.ctgu.airticket.entity.CommonResult;
 import com.ctgu.airticket.entity.TTicketorder;
 import com.ctgu.airticket.repository.TTicketorderRepository;
+import com.ctgu.airticket.utils.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.HttpResource;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,7 +65,23 @@ public class TTicketorderHandler {
     public void deleteById(@RequestBody TTicketorder tTicketorder){
         tTicketorderRepository.deleteById(tTicketorder.getOrderid());
     }
-
+    @PostMapping("/order.do")
+    public String order(@RequestBody TTicketorder tTicketorder, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int userId =(int) session.getAttribute("userId");
+        tTicketorder.setUid(userId);
+        Date orderTime=new Date();
+        tTicketorder.setOrdertime(orderTime);
+        tTicketorder.setOrderno(OrderUtil.getOrderNumber());
+        System.out.println(tTicketorder.toString());
+        TTicketorder result = tTicketorderRepository.save(tTicketorder);
+        if (result != null) {
+            System.out.println("hello:"+result.toString());
+            return "success";
+        } else {
+            return "error";
+        }
+    }
 }
 
 

@@ -13,28 +13,33 @@
 
 <body style="background-color: rgba(226, 224, 224, 0.274);">
 
-    <!-- Head -->
-    <div class="head" style="margin-top: 5px;">
-        <div class="layui-row" style="height:80px">
-            <div class="layui-col-md8">
-                <img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img>
-            </div>
-            <div class="layui-col-md4">
-                <div style="display:inline;">你好，</div>
-                <div class="layui-fluid" style="display:inline;">
-                    <span class="layui-breadcrumb" lay-separator="|">
-                        <a href="">请登录</a>
-                        <a href="">免费注册</a>
-                    </span>
-                </div>
+<!-- Head -->
+<div class="head" style="margin-top: 5px;">
+    <div class="layui-row" style="height:80px">
+        <div class="layui-col-md8">
+            <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
+        </div>
+        <div  class="layui-col-md4">
+            <div class="layui-fluid" style="display:inline;">
+                <div th:if="${session.userId} eq null" style="display:inline;">你好，</div>
+                <div th:if="${session.userId} ne null" style="display:inline;">欢迎回来，</div>
+                <span class="layui-breadcrumb" lay-separator="|">
+                        <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
+                        <a th:if="${session.nickName} eq null">取个名字？</a>
+                        <a th:if="${session.userId} eq null"  href="/login">请登录</a>
+                        <a th:if="${session.userId} eq null" href="/register">免费注册</a>
 
-                </ul>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
+                    </span>
             </div>
+
+            </ul>
+            <a href="/myInfo" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
+            <a href="/myOrder" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
+            <a href="/contact" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
         </div>
     </div>
+
+</div>
     <!-- 下划线 -->
     <div>
         <hr width="100%" style="border-bottom: 4px aqua solid;;;">
@@ -47,8 +52,8 @@
                 <div class="mybox" style="padding-top: 20px;">
                     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo"
                         style="background-color:rgba(128, 128, 128, 0.671)">
-                        <li class="layui-nav-item"><a href="user_my_message.html">个人信息</a></li>
-                        <li class="layui-nav-item"><a href="user_myorders.html">我的订单</a></li>
+                        <li class="layui-nav-item"><a href="/myInfo">个人信息</a></li>
+                        <li class="layui-nav-item"><a href="/myOrder">我的订单</a></li>
                         <li class="layui-nav-item"><a href="">我的账户</a></li>
                         <li class="layui-nav-item"><a href="">综合设置</a></li>
                     </ul>
@@ -58,106 +63,109 @@
             <div class="layui-col-md10">
                 <div class="layui-card">
                     <div class="layui-card-header">我的订单</div>
-                    <div style="margin: 0;">
-                        <div class="layui-col-md12" style="padding-top: 20px;">
-                            <h2 style="border-bottom: 2px rgb(88, 88, 88) solid;">出行日期：2018-6-21</h2>
+                    <!--                    <div style="margin: 0;">-->
+                    <!--                        <div class="layui-col-md12" style="padding-top: 20px;">-->
+                    <!--                            <h2 style="border-bottom: 2px rgb(88, 88, 88) solid;">出行日期：2018-6-21</h2>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="layui-col-md3">-->
+                    <!--                            <p>服务单号：77025824102</br>-->
+                    <!--                                预订时间：2018-06-20 12:41:50</p>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="layui-col-md3">-->
+                    <!--                            <p>联系姓名：肖远涛</br>-->
+                    <!--                                用户账号：Windir</br>-->
+                    <!--                                1803344****</p>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="layui-col-md3">-->
+                    <!--                            <p>当前状态：已出行<br>-->
+                    <!--                                订单编号：77025824102<br>-->
+                    <!--                                订单金额：¥1000.00</p>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="layui-col-md12">-->
+                    <!--                            <p styl电话号码：e="border-bottom: 2px rgb(88, 88, 88) solid;padding-bottom: 20px;">描述文字：<br></p>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                    <div th:each="order:${orderList}"
+                        style="margin: 10px;border: 2px rgb(75, 197, 235) solid;height: 90px;padding: 10px;">
+                        <!-- <div class="layui-col-md12" style="padding-top: 20px;">
+                        出行日期：<h2 style="border-bottom: 2px rgb(88, 88, 88) solid;">2018-6-21</h2>
+                    </div> -->
+                        <div class="layui-col-md4">
+                           <div th:text="'预订时间：'+${order.ordertime}">预订时间：2018-06-22 12:41:50</div>
+                           <div th:text="'订单编号：'+${order.orderno}">订单编号：77025824502</div>
+                           <div th:text="'价格：￥'+${order.totalprice}+'元'">价格：￥1200元</div>
                         </div>
-                        <div class="layui-col-md3">
-                            <p>服务单号：77025824102</br>
-                                预订时间：2018-06-20 12:41:50</p>
+                        <div  class="layui-col-md4">
+                            <div>出发城市：北京</div>
+                           <div>出发时间：2018-06-22 12:41:50</div>
+                           <div th:text="'乘客人姓名：'+${order.contactname}">乘客人姓名：Mr.zhou</div>
                         </div>
-                        <div class="layui-col-md3">
-                            <p>联系姓名：肖远涛</br>
-                                用户账号：Windir</br>
-                                电话号码：1803344****</p>
-                        </div>
-                        <div class="layui-col-md3">
-                            <p>当前状态：已出行<br>
-                                订单编号：77025824102<br>
-                                订单金额：¥1000.00</p>
+                        <div class="layui-col-md4">
+                            <div>到达城市：宜昌</div>
+                            <div>到达时间：2018-06-22 12:41:50</div>
+                            <div th:text="'乘客人联系电话：'+${order.contactphone}">乘客人联系电话：123</div>
                         </div>
                         <div class="layui-col-md12">
-                            <p style="border-bottom: 2px rgb(88, 88, 88) solid;padding-bottom: 20px;">描述文字：<br></p>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin: 0;">
-                    <div class="layui-col-md12" style="padding-top: 20px;">
-                        <h2 style="border-bottom: 2px rgb(88, 88, 88) solid;">出行日期：2018-6-21</h2>
-                    </div>
-                    <div class="layui-col-md3">
-                        <p>服务单号：77025824502</br>
-                            预订时间：2018-06-22 12:41:50</p>
-                    </div>
-                    <div class="layui-col-md3">
-                        <p>联系姓名：肖远涛</br>
-                            用户账号：Windir</br>
-                            电话号码：1803344****</p>
-                    </div>
-                    <div class="layui-col-md3">
-                        <p>当前状态：待出行<br>
-                            订单编号：77025824502<br>
-                            订单金额：¥1000.00</p>
-                    </div>
-                    <div class="layui-col-md12">
-                        <p style="border-bottom: 2px rgb(88, 88, 88) solid;padding-bottom: 20px;">描述文字：<br></p>
-                        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-                            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">退票</button>
+                            <div class="site-demo-button" id="layerDemo" style="margin: 10px;">
+                                <button data-method="offset" data-type="auto"
+                                    class="layui-btn layui-btn-sm">退票</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
 
 
 
 
-        <!-- Jquery Js -->
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script src="layui/layui.js" charset="utf-8"></script>
+            <!-- Jquery Js -->
+            <script type="text/javascript" src="js/jquery.min.js"></script>
+            <script src="layui/layui.js" charset="utf-8"></script>
 
-        <script>
-            layui.use('element', function () {
-                var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+            <script>
+                layui.use('element', function () {
+                    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
 
-                //监听导航点击
-                element.on('nav(demo)', function (elem) {
-                    //console.log(elem)
-                    layer.msg(elem.text());
+                    //监听导航点击
+                    element.on('nav(demo)', function (elem) {
+                        //console.log(elem)
+                        layer.msg(elem.text());
+                    });
                 });
-            });
-            layui.use('layer', function () { //独立版的layer无需执行这一句
-                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-                var active = {
-                    offset: function (othis) {
-                        var type = othis.data('type')
-                            , text = othis.text();
+                layui.use('layer', function () { //独立版的layer无需执行这一句
+                    var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+                    var active = {
+                        offset: function (othis) {
+                            var type = othis.data('type')
+                                , text = othis.text();
 
-                        layer.open({
-                            type: 1
-                            , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-                            , id: 'layerDemo' + type //防止重复弹出
-                            , content: '<div style="padding: 10px 40px;"><h2>您确定要退票吗？</h2></div>'
-                            , btn: ['确认退票', '取消']
-                            , btnAlign: 'c' //按钮居中
-                            , shade: 0 //不显示遮罩
-                            , yes: function () {//已支付--调用此函数
-                                // layer.closeAll();
-                            }
-                        });
-                    }
-                };
+                            layer.open({
+                                type: 1
+                                , offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                                , id: 'layerDemo' + type //防止重复弹出
+                                , content: '<div style="padding: 10px 40px;"><h2>您确定要退票吗？</h2></div>'
+                                , btn: ['确认退票', '取消']
+                                , btnAlign: 'c' //按钮居中
+                                , shade: 0 //不显示遮罩
+                                , yes: function () {//已支付--调用此函数
+                                    // layer.closeAll();
+                                }
+                            });
+                        }
+                    };
 
-                $('#layerDemo .layui-btn').on('click', function () {
-                    var othis = $(this), method = othis.data('method');
-                    active[method] ? active[method].call(this, othis) : '';
+                    $('#layerDemo .layui-btn').on('click', function () {
+                        var othis = $(this), method = othis.data('method');
+                        active[method] ? active[method].call(this, othis) : '';
+                    });
+
                 });
 
-            });
-
-        </script>
+            </script>
 </body>
 
 </html>

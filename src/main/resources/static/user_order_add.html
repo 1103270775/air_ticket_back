@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Layui</title>
+    <title>订单填写</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,28 +13,33 @@
 
 <body style="background-color: rgba(226, 224, 224, 0.274);">
 
-    <!-- Head -->
-    <div class="head" style="margin-top: 5px;">
-        <div class="layui-row" style="height:80px">
-            <div class="layui-col-md8">
-                <img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img>
-            </div>
-            <div class="layui-col-md4">
-                <div style="display:inline;">你好，</div>
-                <div class="layui-fluid" style="display:inline;">
-                    <span class="layui-breadcrumb" lay-separator="|">
-                        <a href="">请登录</a>
-                        <a href="">免费注册</a>
-                    </span>
-                </div>
+<!-- Head -->
+<div class="head" style="margin-top: 5px;">
+    <div class="layui-row" style="height:80px">
+        <div class="layui-col-md8">
+            <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
+        </div>
+        <div  class="layui-col-md4">
+            <div class="layui-fluid" style="display:inline;">
+                <div th:if="${session.userId} eq null" style="display:inline;">你好，</div>
+                <div th:if="${session.userId} ne null" style="display:inline;">欢迎回来，</div>
+                <span class="layui-breadcrumb" lay-separator="|">
+                        <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
+                        <a th:if="${session.nickName} eq null">取个名字？</a>
+                        <a th:if="${session.userId} eq null"  href="/login">请登录</a>
+                        <a th:if="${session.userId} eq null" href="/register">免费注册</a>
 
-                </ul>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
+                    </span>
             </div>
+
+            </ul>
+            <a href="/myInfo" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
+            <a href="/myOrder" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
+            <a href="/contact" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
         </div>
     </div>
+
+</div>
     <!-- 下划线 -->
     <div>
         <hr width="100%" style="border-bottom: 4px aqua solid;;;">
@@ -48,18 +53,18 @@
         <div class="layui-row" style="background-color: rgba(255, 255, 255, 0.801);padding-top: 50px;">
             <div class="layui-col-md2" style="padding-left: 20px;margin-bottom: 40px;">
                 <div class="layui-col-md12">
-                    <h2>东方航空</h2>
+                    <h2 th:text="${flight.cname}">东方航空</h2>
                 </div>
                 <div class="layui-col-md9">
-                    <p style="font-size: 12px;">MU501 空客321（中）</p>
+                    <p th:text="${flight.aircrafttype}" style="font-size: 12px;">MU501 空客321（中）</p>
                 </div>
             </div>
             <div class="layui-col-md2">
                 <div class="layui-col-md12">
-                    <h2>08:35</h2>
+                    <h2 th:text="${flight.fromtime.getHours()}+':'+${flight.fromtime.getMinutes()}">08:35</h2>
                 </div>
                 <div class="layui-col-md9">
-                    <h4>浦东国际机场T1</h4>
+                    <h4 th:text="${flight.fromcity}">浦东国际机场T1</h4>
                 </div>
             </div>
             <div class="layui-col-md2">
@@ -67,20 +72,25 @@
             </div>
             <div class="layui-col-md2">
                 <div class="layui-col-md12">
-                    <h2>11:35</h2>
+                    <h2 th:text="${flight.totime.getHours()}+':'+${flight.totime.getMinutes()}">11:35</h2>
                 </div>
                 <div class="layui-col-md9">
-                    <h4>香港国际机场T1</h4>
+                    <h4 th:text="${flight.tocity}">香港国际机场T1</h4>
                 </div>
             </div>
             <div class="layui-col-md2">
                 <div class="layui-col-md12">
-                    <h3>2小时:55分</h3>
+                    <h3 th:text="${flight.flytime}">2小时:55分</h3>
                 </div>
             </div>
             <div class="layui-col-md2">
-                <div class="layui-col-md12">
-                    <h2>￥1080元</h2>
+                <div th:if="${spaceType} eq '经济舱'" class="layui-col-md12">
+                    <h2 style="color: #FF5722" th:text="'￥'+${flight.ecprice}+'元'">￥1080元</h2>
+                    <h4>经济舱</h4>
+                </div>
+                <div th:if="${spaceType} eq '头等舱'" class="layui-col-md12">
+                    <h2 style="color: #FF5722" th:text="'￥'+${flight.fcprice}+'元'">￥1080元</h2>
+                    <h4>头等舱</h4>
                 </div>
             </div>
         </div>
@@ -93,7 +103,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">姓名：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入乘客人姓名"
+                    <input type="text" name="contactname" lay-verify="title" autocomplete="off" placeholder="请输入乘客人姓名"
                         class="layui-input" style="width: auto;margin-left: 5px;">
                 </div>
             </div>
@@ -104,10 +114,17 @@
                         class="layui-input" style="width: 300px;">
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="contactphone" lay-verify="title" autocomplete="off" placeholder="请输入乘客人手机号"
+                        class="layui-input" style="width: 305px;">
+                </div>
+            </div>
         </form>
     </div>
     <!-- 联系人 -->
-    <div>
+    <!-- <div>
         <h2 style="font-weight: bolder;padding-top: 50px;margin-left: 220px;">联系人</h2>
         <form class="layui-form" action="" style="padding-top: 20px;margin-left: 220px;">
             <div class="layui-form-item">
@@ -125,7 +142,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    </div> -->
 
     <!-- 订单提交 -->
     <div style="width: 216px; margin-left: 40%;padding-top: 70px;padding-bottom: 50px;">
@@ -143,15 +160,7 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="layui/layui.js" charset="utf-8"></script>
 
-    <script>
-        layui.use('laydate', function () {
-            var laydate = layui.laydate;
-
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#fromdate' //指定元素
-            });
-        });
+    <script th:inline="javascript">
 
         layui.use('layer', function () { //独立版的layer无需执行这一句
             var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
@@ -169,16 +178,58 @@
                         , btnAlign: 'c' //按钮居中
                         , shade: 0 //不显示遮罩
                         , yes: function () {//已支付--调用此函数
-                            // layer.closeAll();
+                            console.log("hello")
+                            var data = {};
+                            var form = $('form').serializeArray();
+                            $.each(form, function () {
+                                data[this.name] = this.value;
+                            });
+                            data["spacetype"] = [[${ spaceType }]];
+                            data["fid"] = [[${ flight.fid }]];
+                            data["num"] = 1;
+                            if (data["spacetype"] == "经济舱") {
+                                data["price"] = [[${ flight.ecprice }]];
+
+                            } else {
+                                data["price"] = [[${ flight.fcprice }]];
+                            }
+                            data["totalprice"] = data["price"] * data["num"];
+                            data["paystatus"] = "已支付"
+
+                            var json_str = JSON.stringify(data);
+                            console.log(json_str)
+                            $.ajax({
+                                url: "http://localhost:8181/ticketorder/order.do",
+                                type: "post",
+                                contentType: "application/json",//设置请求参数类型为json字符串
+                                data: json_str, //将json对象转换成json字符串发送
+                                dataType: "json",
+                                success: function (result) {
+                                    console.log(result)
+                                },
+                            });
+                            layer.closeAll();
+                            layer.msg("预定成功",{
+                                icon:1
+                            })
+                        }
+                        ,btn2:function () {
+                            layer.msg("请及时付款",{
+                                icon:2
+                            })
+                        }
+                        , cancel: function () {
+                            //右上角关闭回调
+                            layer.closeAll();
                         }
                     });
                 }
             };
 
-            $('#layerDemo .layui-btn').on('click', function () {
-                var othis = $(this), method = othis.data('method');
-                active[method] ? active[method].call(this, othis) : '';
-            });
+        $('#layerDemo .layui-btn').on('click', function () {
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
 
         });
 

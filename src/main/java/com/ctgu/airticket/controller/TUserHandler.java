@@ -85,5 +85,4 @@ public class TUserHandler {
     public void deleteById(@RequestBody TUser tUser){
         tUserRepository.deleteById(tUser.getUserid());
     }
-
 }

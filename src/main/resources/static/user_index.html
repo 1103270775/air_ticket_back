@@ -8,14 +8,8 @@
     <link rel="stylesheet" href="layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="layui/css/login.css" media="all" />
     <style>
-        /* 覆盖原框架样式   */
-        .layui-elem-quote {
-            background-color: inherit !important;
-        }
-
-        .layui-input,
-        .layui-select,
-        .layui-textarea {
+        .layui-input
+         {
             background-color: inherit;
             padding-left: 30px;
         }
@@ -38,28 +32,34 @@
     <div class="head" style="margin-top: 5px;">
         <div class="layui-row" style="height:80px">
             <div class="layui-col-md8">
-                <img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img>
+                <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
             </div>
             <div  class="layui-col-md4">
-                <div class="layui-fluid" style="display:inline;">
-                    <div th:if="${session.nickName} eq null" style="display:inline;">你好，</div>
-                    <div th:if="${session.nickName} ne null" style="display:inline;">欢迎回来，</div>
+                <div th:if="${session.userId} eq null" class="layui-fluid" style="display:inline;">
+                    <div  style="display:inline;">你好，</div>
+                    <span class="layui-breadcrumb" lay-separator="|">
+                        <a href="/login">请登录</a>
+                        <a href="/register">免费注册</a>
+
+                    </span>
+                </div>
+                <div th:if="${session.userId} ne null" class="layui-fluid" style="display:inline;">
+                    <div style="display:inline;">欢迎回来，</div>
                     <span class="layui-breadcrumb" lay-separator="|">
                         <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
-                        <a th:if="${session.nickName} eq null"  href="/login">请登录</a>
-                        <a th:if="${session.nickName} eq null" href="/register">免费注册</a>
-
+                        <a th:if="${session.nickName} eq null">取个名字？</a>
                     </span>
                 </div>
 
                 </ul>
                 <a href="/myInfo" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
-                <a href="http://www.layui.com" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
+                <a href="/myOrder" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
+                <a href="/contact" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
             </div>
         </div>
 
     </div>
+
     <div
         style="position: absolute;z-index: 9;background-color: rgb(8, 190, 245);width: 560px;height: 350px;margin-top: 60px;margin-left: 40px;">
         <div class="layui-tab" style="background-color: white;margin: 10px;height: 330px">
@@ -169,9 +169,12 @@
                     <img width="20px" src="src/jiantou.png" >
                     <div th:text="${tFlight.tocity}">北京</div></div>
                 
-                <div style="margin: 5px 10px;">12月24日</div>
+                <div th:text="${tFlight.fromtime.toString().substring(0,10)}" style="margin: 5px 10px;">12月24日</div>
                 <div  style="display:flex;margin: 10px;justify-content: space-between;">
-                <div th:text="${tFlight.ecprice}">￥1200元</div>
+                    <div >
+                        <div style="display: inline;color: darkorange">￥</div>
+                        <div th:text="${tFlight.ecprice}+'元'" style="display: inline">1200元</div>
+                    </div>
                 <button class="layui-btn layui-btn-warm layui-btn-xs">立抢</button>
                 </div>
             </div>
