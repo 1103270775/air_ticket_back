@@ -13,37 +13,37 @@
 
 <body style="background-color: rgba(226, 224, 224, 0.274);">
 
-    <!-- Head -->
-    <div class="head" style="margin-top: 5px;">
-        <div class="layui-row" style="height:80px">
-            <div class="layui-col-md8">
-                <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
-            </div>
-            <div class="layui-col-md4">
-                <div th:if="${session.userId} eq null" class="layui-fluid" style="display:inline;">
-                    <div style="display:inline;">你好，</div>
-                    <span class="layui-breadcrumb" lay-separator="|">
+<!-- Head -->
+<div class="head" style="margin-top: 5px;">
+    <div class="layui-row" style="height:80px">
+        <div class="layui-col-md8">
+            <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
+        </div>
+        <div  class="layui-col-md4">
+            <div th:if="${session.userId} eq null" class="layui-fluid" style="display:inline;">
+                <div  style="display:inline;">你好，</div>
+                <span class="layui-breadcrumb" lay-separator="|">
                         <a href="/login">请登录</a>
                         <a href="/register">免费注册</a>
 
                     </span>
-                </div>
-                <div th:if="${session.userId} ne null" class="layui-fluid" style="display:inline;">
-                    <div style="display:inline;">欢迎回来，</div>
-                    <span class="layui-breadcrumb" lay-separator="|">
-                        <a th:if="${session.nickName} ne null" th:text="${session.nickName}"></a>
+            </div>
+            <div th:if="${session.userId} ne null" class="layui-fluid" style="display:inline;">
+                <div style="display:inline;">欢迎回来，</div>
+                <span class="layui-breadcrumb" lay-separator="|">
+                        <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
                         <a th:if="${session.nickName} eq null">取个名字？</a>
                     </span>
-                </div>
-
-                </ul>
-                <a href="/myInfo" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
-                <a href="/myOrder" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
-                <a href="/contact" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
             </div>
-        </div>
 
+            </ul>
+            <a href="/myInfo" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
+            <a href="/myOrder" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
+            <a href="/contact" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
+        </div>
     </div>
+
+</div>
 
     <div>
         <hr width="100%" style="border-bottom: 4px aqua solid;;;">
@@ -104,11 +104,15 @@
             <div class="layui-row" style="background-color:rgba(255, 255, 255, 0.801);padding-top: 50px;">
                 <div class="layui-col-md2" style="padding-left: 20px;margin-bottom: 40px;">
                     <div class="layui-col-md12">
-                        <h2 th:text="${flight.cname}">东方航空</h2>
+                        <p th:text="${flight.aircraftno}" style="font-size: 16px;color: #8D8D8D">MU4784</p>
                     </div>
-                    <div class="layui-col-md9">
-                        <p th:text="${flight.aircrafttype}" style="font-size: 12px;">MU501 空客321（中）</p>
+                    <div class="layui-col-md12">
+                        <h3 th:text="${flight.cname}">东方航空</h3>
                     </div>
+                    <div class="layui-col-md12">
+                        <p th:text="${flight.aircrafttype}" style="font-size: 14px;">空客321（中）</p>
+                    </div>
+
                 </div>
                 <div class="layui-col-md2">
                     <div class="layui-col-md12">
@@ -119,6 +123,7 @@
                     </div>
                 </div>
                 <div class="layui-col-md2">
+                    <h2 style="color: #8D8D8D" th:text="${flight.fromtime.toString().substring(0,10)}"></h2>
                     <img src="src/箭头.png"></img>
                 </div>
                 <div class="layui-col-md2">
@@ -132,11 +137,12 @@
                 <div class="layui-col-md2">
                     <div class="layui-col-md12">
                         <h3 th:text="${flight.flytime}">2小时:55分</h3>
+                        <h4>飞行时间</h4>
                     </div>
                 </div>
                 <div class="layui-col-md2">
                     <div class="layui-col-md12">
-                        <h4>航班详情</h4>
+                        <h4 style="color: #00CBFF">航班详情</h4>
                     </div>
                 </div>
             </div>
@@ -148,7 +154,7 @@
                     <h2 style="line-height: 80px;">经济舱</h2>
                 </div>
                 <div class="layui-col-md2">
-                    <h2 th:text="'￥'+${flight.ecprice}" style="line-height: 80px;color:coral;">￥1040</h2>
+                    <h2 th:text="'￥'+${flight.ecprice}+'元'" style="line-height: 80px;color:coral;">￥1040元</h2>
                 </div>
                 <div class="layui-col-md2">
                     <button th:data-id="${flight.fid}" type="button" class="layui-btn layui-btn-normal ec_btn"
@@ -163,7 +169,7 @@
                     <h2 style="line-height: 80px;">头等舱</h2>
                 </div>
                 <div class="layui-col-md2">
-                    <h2 th:text="'￥'+${flight.fcprice}" style="line-height: 80px;color:coral;">￥2040</h2>
+                    <h2 th:text="'￥'+${flight.fcprice}+'元'" style="line-height: 80px;color:coral;">￥2040元</h2>
                 </div>
                 <div class="layui-col-md2">
                     <button th:data-id="${flight.fid}" type="button" class="layui-btn layui-btn-normal fc_btn"
@@ -173,7 +179,13 @@
         </div>
     </div>
 
-
+<!-- Footer -->
+<div class="layui-row" style="line-height: 80px;">
+    <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
+        © 2020 - 智联机票在线预定 || airticket.com版权所有
+    </div>
+</div>
+<!-- Footer End -->
     <!-- Jquery Js -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <!-- Layui Js -->

@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="layui/css/login.css" media="all" />
     <style>
+        /* 覆盖原框架样式 */
+        .layui-elem-quote {
+            background-color: inherit !important;
+        }
+
         .layui-input
-         {
+        {
             background-color: inherit;
             padding-left: 30px;
         }
@@ -28,38 +33,37 @@
 </head>
 
 <body>
-    <!-- Head -->
-    <div class="head" style="margin-top: 5px;">
-        <div class="layui-row" style="height:80px">
-            <div class="layui-col-md8">
-                <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
-            </div>
-            <div  class="layui-col-md4">
-                <div th:if="${session.userId} eq null" class="layui-fluid" style="display:inline;">
-                    <div  style="display:inline;">你好，</div>
-                    <span class="layui-breadcrumb" lay-separator="|">
+   <!-- Head -->
+<div class="head" style="margin-top: 5px;">
+    <div class="layui-row" style="height:80px">
+        <div class="layui-col-md8">
+            <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
+        </div>
+        <div  class="layui-col-md4">
+            <div th:if="${session.userId} eq null" class="layui-fluid" style="display:inline;">
+                <div  style="display:inline;">你好，</div>
+                <span class="layui-breadcrumb" lay-separator="|">
                         <a href="/login">请登录</a>
                         <a href="/register">免费注册</a>
 
                     </span>
-                </div>
-                <div th:if="${session.userId} ne null" class="layui-fluid" style="display:inline;">
-                    <div style="display:inline;">欢迎回来，</div>
-                    <span class="layui-breadcrumb" lay-separator="|">
+            </div>
+            <div th:if="${session.userId} ne null" class="layui-fluid" style="display:inline;">
+                <div style="display:inline;">欢迎回来，</div>
+                <span class="layui-breadcrumb" lay-separator="|">
                         <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
                         <a th:if="${session.nickName} eq null">取个名字？</a>
                     </span>
-                </div>
-
-                </ul>
-                <a href="/myInfo" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
-                <a href="/myOrder" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
-                <a href="/contact" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
             </div>
-        </div>
 
+            </ul>
+            <a href="/myInfo" class="layui-btn layui-btn-normal layui-btn-xs">我的</a>
+            <a href="/myOrder" class="layui-btn layui-btn-normal layui-btn-xs">我的订单</a>
+            <a href="/contact" class="layui-btn layui-btn-normal layui-btn-xs">联系客服</a>
+        </div>
     </div>
 
+</div>
     <div
         style="position: absolute;z-index: 9;background-color: rgb(8, 190, 245);width: 560px;height: 350px;margin-top: 60px;margin-left: 40px;">
         <div class="layui-tab" style="background-color: white;margin: 10px;height: 330px">
@@ -79,25 +83,17 @@
                         <div class="layui-row">
                             <div class="layui-col-md5">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">出发</label>
+                                    <label class="layui-form-label">出发城市</label>
                                     <div class="layui-input-block">
-                                        <select name="fromcity" lay-verify="required" lay-search>
-                                            <option value="北京" selected>北京</option>
-                                            <option value="上海">上海</option>
-                                            <option value="宜昌" >宜昌</option>
-                                        </select>
+                                        <input type="text" name="fromcity" class="layui-input" placeholder="如：宜昌" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="layui-col-md5">
                                 <div class="layui-form-item" style="width: 270px;display: inline;">
-                                    <label class="layui-form-label">到达</label>
+                                    <label class="layui-form-label">到达城市</label>
                                     <div class="layui-input-block">
-                                        <select name="tocity" lay-verify="required" lay-search>
-                                            <option value="北京">北京</option>
-                                            <option value="上海">上海</option>
-                                            <option value="杭州" selected>杭州</option>
-                                        </select>
+                                        <input type="text" name="tocity" class="layui-input" required placeholder="如：深圳">
                                     </div>
                                 </div>
                             </div>
@@ -106,11 +102,11 @@
                         <div class="layui-row">
                             <div class="layui-col-md8">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">日期</label>
+                                    <label class="layui-form-label">出行日期</label>
                                     <div class="layui-input-block">
                                         <div class="layui-inline">
                                             <!-- 注意：这一层元素并不是必须的 -->
-                                            <input type="text" name="fromdate" class="layui-input" id="dateform">
+                                            <input type="text" name="fromdate"  class="layui-input" required id="dateform" >
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +121,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="layui-tab-item">内容2</div>
+                <div class="layui-tab-item">国际机票</div>
             </div>
         </div>
     </div>
@@ -171,10 +167,7 @@
                 
                 <div th:text="${tFlight.fromtime.toString().substring(0,10)}" style="margin: 5px 10px;">12月24日</div>
                 <div  style="display:flex;margin: 10px;justify-content: space-between;">
-                    <div >
-                        <div style="display: inline;color: darkorange">￥</div>
-                        <div th:text="${tFlight.ecprice}+'元'" style="display: inline">1200元</div>
-                    </div>
+                <div style="color: #eb7350" th:text="'￥'+${tFlight.ecprice}+'元'">￥1200元</div>
                 <button class="layui-btn layui-btn-warm layui-btn-xs">立抢</button>
                 </div>
             </div>

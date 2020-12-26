@@ -12,7 +12,6 @@
 </head>
 
 <body style="background-color: rgba(226, 224, 224, 0.274);">
-
 <!-- Head -->
 <div class="head" style="margin-top: 5px;">
     <div class="layui-row" style="height:80px">
@@ -20,15 +19,19 @@
             <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
         </div>
         <div  class="layui-col-md4">
-            <div class="layui-fluid" style="display:inline;">
-                <div th:if="${session.userId} eq null" style="display:inline;">你好，</div>
-                <div th:if="${session.userId} ne null" style="display:inline;">欢迎回来，</div>
+            <div th:if="${session.userId} eq null" class="layui-fluid" style="display:inline;">
+                <div  style="display:inline;">你好，</div>
+                <span class="layui-breadcrumb" lay-separator="|">
+                        <a href="/login">请登录</a>
+                        <a href="/register">免费注册</a>
+
+                    </span>
+            </div>
+            <div th:if="${session.userId} ne null" class="layui-fluid" style="display:inline;">
+                <div style="display:inline;">欢迎回来，</div>
                 <span class="layui-breadcrumb" lay-separator="|">
                         <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
                         <a th:if="${session.nickName} eq null">取个名字？</a>
-                        <a th:if="${session.userId} eq null"  href="/login">请登录</a>
-                        <a th:if="${session.userId} eq null" href="/register">免费注册</a>
-
                     </span>
             </div>
 
@@ -120,7 +123,13 @@
 
 
 
-
+            <!-- Footer -->
+            <div class="layui-row" style="line-height: 80px;">
+                <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
+                    © 2020 - 智联机票在线预定 || airticket.com版权所有
+                </div>
+            </div>
+            <!-- Footer End -->
 
             <!-- Jquery Js -->
             <script type="text/javascript" src="js/jquery.min.js"></script>

@@ -12,7 +12,6 @@
 </head>
 
 <body style="background-color: rgba(226, 224, 224, 0.274);">
-
 <!-- Head -->
 <div class="head" style="margin-top: 5px;">
     <div class="layui-row" style="height:80px">
@@ -20,15 +19,19 @@
             <a href="/index"><img style="margin-top: 10px;" height="60px" src="./src/logo.png"></img></a>
         </div>
         <div  class="layui-col-md4">
-            <div class="layui-fluid" style="display:inline;">
-                <div th:if="${session.userId} eq null" style="display:inline;">你好，</div>
-                <div th:if="${session.userId} ne null" style="display:inline;">欢迎回来，</div>
+            <div th:if="${session.userId} eq null" class="layui-fluid" style="display:inline;">
+                <div  style="display:inline;">你好，</div>
+                <span class="layui-breadcrumb" lay-separator="|">
+                        <a href="/login">请登录</a>
+                        <a href="/register">免费注册</a>
+
+                    </span>
+            </div>
+            <div th:if="${session.userId} ne null" class="layui-fluid" style="display:inline;">
+                <div style="display:inline;">欢迎回来，</div>
                 <span class="layui-breadcrumb" lay-separator="|">
                         <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
                         <a th:if="${session.nickName} eq null">取个名字？</a>
-                        <a th:if="${session.userId} eq null"  href="/login">请登录</a>
-                        <a th:if="${session.userId} eq null" href="/register">免费注册</a>
-
                     </span>
             </div>
 
@@ -53,9 +56,12 @@
         <div class="layui-row" style="background-color: rgba(255, 255, 255, 0.801);padding-top: 50px;">
             <div class="layui-col-md2" style="padding-left: 20px;margin-bottom: 40px;">
                 <div class="layui-col-md12">
+                    <p th:text="${flight.aircraftno}" style="font-size: 16px;color: #8D8D8D">MU4784</p>
+                </div>
+                <div class="layui-col-md12">
                     <h2 th:text="${flight.cname}">东方航空</h2>
                 </div>
-                <div class="layui-col-md9">
+                <div class="layui-col-md12">
                     <p th:text="${flight.aircrafttype}" style="font-size: 12px;">MU501 空客321（中）</p>
                 </div>
             </div>
@@ -68,6 +74,7 @@
                 </div>
             </div>
             <div class="layui-col-md2">
+                <h2 style="color: #8D8D8D" th:text="${flight.fromtime.toString().substring(0,10)}"></h2>
                 <img src="src/箭头.png"></img>
             </div>
             <div class="layui-col-md2">
@@ -155,7 +162,13 @@
 
     <!-- <div style="padding: 20px 100px;"><h2>订单生成成功，请使用微信或者支付宝支付该订单</h2><img src="src/二维码.png" style="width: ;"></img></div> -->
 
-
+<!-- Footer -->
+<div class="layui-row" style="line-height: 80px;">
+    <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
+        © 2020 - 智联机票在线预定 || airticket.com版权所有
+    </div>
+</div>
+<!-- Footer End -->
     <!-- Jquery Js -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="layui/layui.js" charset="utf-8"></script>
