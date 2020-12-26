@@ -69,6 +69,7 @@ public class TUserHandler {
             session.setAttribute("userId", result.getUserid());
             session.setAttribute("userName", result.getUsername());
             session.setAttribute("nickName", result.getNickname());
+            System.out.println(session.getAttribute("userId"));
             return true;
         }else{
             return false;

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- *
- *
- * @author xzh
- * @since 2020-12-18 20:49
- */
+        *
+        *
+        * @author xzh
+        * @since 2020-12-18 20:49
+        */
 @RestController
 @RequestMapping("/manager")
 public class TManagerHandler {
