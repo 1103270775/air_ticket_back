@@ -46,17 +46,6 @@ public class TUserHandler {
             return new CommonResult<>(200, "error", 0, null);
         }
     }
-    @PostMapping("/register")
-    public CommonResult<Null> register(@RequestBody TUser tUser){
-        TUser result = tUserRepository.save(tUser);
-        if(result != null){
-            return new CommonResult<>(200, "success", 1, null);
-        }else{
-            return new CommonResult<>(200, "error", 0, null);
-        }
-    }
-
-
     @PutMapping("/update")
     public String update(@RequestBody TUser tUser){
 
@@ -66,6 +55,10 @@ public class TUserHandler {
         }else{
             return "error";
         }
+    }
+    @DeleteMapping("/deleteById")
+    public void deleteById(@RequestBody TUser tUser){
+        tUserRepository.deleteById(tUser.getUserid());
     }
 
     @PostMapping("/login")
@@ -81,8 +74,13 @@ public class TUserHandler {
             return false;
         }
     }
-    @DeleteMapping("/deleteById")
-    public void deleteById(@RequestBody TUser tUser){
-        tUserRepository.deleteById(tUser.getUserid());
+    @PostMapping("/register")
+    public CommonResult<Null> register(@RequestBody TUser tUser){
+        TUser result = tUserRepository.save(tUser);
+        if(result != null){
+            return new CommonResult<>(200, "success", 1, null);
+        }else{
+            return new CommonResult<>(200, "error", 0, null);
+        }
     }
 }
