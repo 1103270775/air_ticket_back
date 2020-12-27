@@ -30,83 +30,150 @@ public class ViewController {
     @Autowired
     TFlightHandler tFlightHandler;
     @Autowired
-    TUserHandler tUserHandler;
-    @Autowired
     TUserRepository tUserRepository;
     @Autowired
     TFlightRepository tFlightRepository;
     @Autowired
     TTicketorderRepository tTicketorderRepository;
+
+    /**
+     * 登录页面跳转控制
+     *
+     * @return
+     */
     @RequestMapping("/login")
-    public String toLogin(){
+    public String toLogin() {
         return "user_login";
     }
+
+    /**
+     * 注册页面跳转控制
+     *
+     * @return
+     */
     @RequestMapping("/register")
-    public String toRegister(){
+    public String toRegister() {
         return "user_register";
     }
+
+    /**
+     * 主页跳转控制
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("/index")
-    public String toIndex(Model model){
+    public String toIndex(Model model) {
 
         List<TFlight> todayTflights = tFlightHandler.findTodayTflights();
         model.addAttribute("todaytFlightList", todayTflights);
         return "user_index";
     }
+
+    /**
+     * 航班搜索页面跳转控制
+     *
+     * @param fromcity
+     * @param tocity
+     * @param fromdate
+     * @param model
+     * @return
+     */
     @RequestMapping("/search")
-    public String toSearch(@RequestParam("fromcity") String fromcity, @RequestParam("tocity") String tocity, @RequestParam("fromdate") String fromdate, Model model){
+    public String toSearch(@RequestParam("fromcity") String fromcity, @RequestParam("tocity") String tocity, @RequestParam("fromdate") String fromdate, Model model) {
         List<TFlight> tflights = tFlightHandler.findByCityandDate(fromcity, tocity, fromdate);
         model.addAttribute("tFlightList", tflights);
         return "user_search_in";
     }
 
+    /**
+     * 个人信息页面跳转控制
+     *
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping("/myInfo")
-    public String toMyInfo(HttpServletRequest request, Model model){
+    public String toMyInfo(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        int userName = (int)session.getAttribute("userId");
-        Optional<TUser> optional = tUserRepository.findById(userName);
+        int userId;
+        if (session.getAttribute("userId")==null) {
+            return "redirect:/login";
+        }else {
+            userId =(int)session.getAttribute("userId");
+        }
+
+        Optional<TUser> optional = tUserRepository.findById(userId);
         TUser tUser = optional.get();
         model.addAttribute("myInfo", tUser);
         return "user_my_message";
     }
 
+    /**
+     * 我的订单页面跳转控制
+     *
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping("/myOrder")
-    public String toMyOrder(HttpServletRequest request, Model model){
+    public String toMyOrder(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        int userId =(int)session.getAttribute("userId");
+        int userId;
+        if (session.getAttribute("userId")==null) {
+            return "redirect:/login";
+        }else {
+            userId =(int)session.getAttribute("userId");
+        }
         List<TTicketorder> ticketOrderList = tTicketorderRepository.findAllByUid(userId);
         model.addAttribute("orderList", ticketOrderList);
         return "user_myorders";
     }
+
+    /**
+     * 更新个人信息方法控制
+     *
+     * @param tUser
+     * @param request
+     * @return
+     */
     @PostMapping("/updateInfo")
-    public String updateInfo(TUser tUser,HttpServletRequest request){
+    public String updateInfo(TUser tUser, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        int userId = (int)session.getAttribute("userId");
-        String userName = (String)session.getAttribute("userName");
+        int userId = (int) session.getAttribute("userId");
+        String userName = (String) session.getAttribute("userName");
         tUser.setUserid(userId);
         tUser.setUsername(userName);
         if (tUser.getNickname().isEmpty()) {
             session.setAttribute("nickName", null);
-        }else {
+        } else {
             session.setAttribute("nickName", tUser.getNickname());
         }
         Optional<TUser> user = tUserRepository.findById(userId);
         String passWord = user.get().getPassword();
         tUser.setPassword(passWord);
         TUser result = tUserRepository.save(tUser);
-        if(result != null){
+        if (result != null) {
             return "redirect:/myInfo";
-        }else{
+        } else {
             return "error";
         }
     }
+
+    /**
+     * 订单填写页面逻辑控制
+     *
+     * @param fid
+     * @param spaceType
+     * @param model
+     * @return
+     */
     @GetMapping("/orderFill")
-    public String toOrder(@RequestParam("fid")int fid,@RequestParam("spaceType")String spaceType,Model model){
+    public String toOrder(@RequestParam("fid") int fid, @RequestParam("spaceType") String spaceType, Model model) {
         Optional<TFlight> opt = tFlightRepository.findById(fid);
         TFlight tFlight = opt.get();
         model.addAttribute("flight", tFlight);
         model.addAttribute("spaceType", spaceType);
         return "user_order_add";
     }
-
-    
 }

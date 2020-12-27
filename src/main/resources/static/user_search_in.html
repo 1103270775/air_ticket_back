@@ -22,7 +22,7 @@
         <div  class="layui-col-md4">
             <div th:if="${session.userId} eq null" class="layui-fluid" style="display:inline;">
                 <div  style="display:inline;">你好，</div>
-                <span class="layui-breadcrumb" lay-separator="|">
+                <span class="layui-breadcrumb" lay-separator="|" style="visibility: visible">
                         <a href="/login">请登录</a>
                         <a href="/register">免费注册</a>
 
@@ -30,7 +30,7 @@
             </div>
             <div th:if="${session.userId} ne null" class="layui-fluid" style="display:inline;">
                 <div style="display:inline;">欢迎回来，</div>
-                <span class="layui-breadcrumb" lay-separator="|">
+                <span class="layui-breadcrumb" lay-separator="|" style="visibility: visible">
                         <a th:if="${session.nickName} ne null"  th:text="${session.nickName}"></a>
                         <a th:if="${session.nickName} eq null">取个名字？</a>
                     </span>

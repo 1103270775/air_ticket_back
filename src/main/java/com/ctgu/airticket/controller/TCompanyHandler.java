@@ -26,8 +26,11 @@ import java.util.Optional;
 public class TCompanyHandler {
     @Autowired
     TCompanyRepository tCompanyRepository;
+
     /**
      * 增加一条航空公司信息
+     * @param tCompany
+     * @return
      */
     @PostMapping("/save")
     public CommonResult<Null> save(@RequestBody TCompany tCompany){
@@ -38,11 +41,23 @@ public class TCompanyHandler {
             return new CommonResult<>(200, "error", 1, null);
         }
     }
+
+    /**
+     * 根据cid删除一条航空公司信息
+     * @param tCompany
+     * @return
+     */
     @DeleteMapping("/deleteById")
     public CommonResult<Null> deleteById(@RequestBody TCompany tCompany){
         tCompanyRepository.deleteById(tCompany.getCid());
         return new CommonResult<>(200, "success", 1, null);
     }
+
+    /**
+     * 更新航空公司信息
+     * @param tCompany
+     * @return
+     */
     @PutMapping("/update")
     public CommonResult<Null> update(@RequestBody TCompany tCompany){
         TCompany result = tCompanyRepository.save(tCompany);
@@ -52,6 +67,12 @@ public class TCompanyHandler {
             return new CommonResult<>(200, "error", 1, null);
         }
     }
+
+    /**
+     * 根据cid查看航空公司信息
+     * @param tCompany
+     * @return
+     */
     @GetMapping("/findById")
     public CommonResult<TCompany> findById(@RequestBody TCompany tCompany){
         Optional<TCompany> result =  tCompanyRepository.findById(tCompany.getCid());
@@ -61,6 +82,13 @@ public class TCompanyHandler {
             return new CommonResult<>(200, "error", 1, null);
         }
     }
+
+    /**
+     * 分页查询航空公司信息
+     * @param page
+     * @param size
+     * @return
+     */
     @GetMapping("/findAll")
     public CommonResult<List<TCompany>> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
         PageRequest request = PageRequest.of(page-1,size);

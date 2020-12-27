@@ -33,95 +33,108 @@ import java.util.Optional;
 public class TFlightHandler {
     @Autowired
     TFlightRepository tFlightRepository;
-    //增加一条航班信息
+
+    /**
+     * 增加一条航班信息
+     *
+     * @param tFlight
+     * @return
+     */
     @PostMapping("/save")
-    public CommonResult<Null> save(@RequestBody TFlight tFlight){
+    public CommonResult<Null> save(@RequestBody TFlight tFlight) {
         TFlight save = tFlightRepository.save(tFlight);
-        if (save!=null){
+        if (save != null) {
             return new CommonResult<>(200, "success", 1, null);
-        }else {
+        } else {
             return new CommonResult<>(200, "error", 1, null);
         }
     }
+
+    /**
+     * 根据fid删除一条航班信息
+     *
+     * @param tFlight
+     * @return
+     */
     @DeleteMapping("/deleteById")
-    public CommonResult<Null> deleteById(@RequestBody TFlight tFlight){
+    public CommonResult<Null> deleteById(@RequestBody TFlight tFlight) {
         tFlightRepository.deleteById(tFlight.getFid());
         return new CommonResult<>(200, "success", 1, null);
     }
+
+    /**
+     * 更新航班信息
+     *
+     * @param tFlight
+     * @return
+     */
     @PutMapping("/update")
-    public CommonResult<Null> update(@RequestBody TFlight tFlight){
+    public CommonResult<Null> update(@RequestBody TFlight tFlight) {
         TFlight result = tFlightRepository.save(tFlight);
-        if(result!= null){
+        if (result != null) {
             return new CommonResult<>(200, "success", 1, null);
-        }else{
+        } else {
             return new CommonResult<>(200, "error", 1, null);
         }
     }
+
+    /**
+     * 根据fid查看一条航班信息
+     *
+     * @param tFlight
+     * @return
+     */
     @GetMapping("/findById")
-    public CommonResult<TFlight> findById(@RequestBody TFlight tFlight){
+    public CommonResult<TFlight> findById(@RequestBody TFlight tFlight) {
         Optional<TFlight> result = tFlightRepository.findById(tFlight.getFid());
-        if (result!=null) {
+        if (result != null) {
             return new CommonResult<>(200, "success", 1, result.get());
-        }else {
+        } else {
             return new CommonResult<>(200, "error", 1, null);
         }
     }
+
+    /**
+     * 分页查找所有航班信息
+     *
+     * @param page
+     * @param size
+     * @return
+     */
     @GetMapping("/findAll")
-    public CommonResult<List<TFlight>> findAll(@PathParam("page") Integer page, @PathParam("size") Integer size){
-        PageRequest request = PageRequest.of(page-1,size);
+    public CommonResult<List<TFlight>> findAll(@PathParam("page") Integer page, @PathParam("size") Integer size) {
+        PageRequest request = PageRequest.of(page - 1, size);
         List<TFlight> content = tFlightRepository.findAll(request).getContent();
-        int count=(int)tFlightRepository.count();
+        int count = (int) tFlightRepository.count();
         return new CommonResult<>(200, "航班信息列表", count, content);
     }
 
     /**
-     * @Author xzh
-     * 查询功能实现 限定城市+时间
-     */
-//    @GetMapping("/searchBy")
-//    public CommonResult<List<TFlight>> searchBy(@PathParam("fromcity") String fromcity, @PathParam("tocity") String tocity,@PathParam("fromdate") String fromdate){
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date date = new Date();
-//        Date lastdate = new Date();
-//        try {
-//            date = sdf.parse(fromdate+" 00:00:00");
-//            lastdate = sdf.parse(fromdate+" 23:59:59");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-////        return new CommonResult<>(200,"success",);
-//        return new CommonResult<>(200, "航班信息列表", count, content);
-//    }
-    /**
      * @Author Mr.zhou
      * 查询功能实现 限定城市+时间
      */
-    public List<TFlight> findByCityandDate(String fromcity, String tocity, String fromdate){
+    public List<TFlight> findByCityandDate(String fromcity, String tocity, String fromdate) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         Date lastdate = new Date();
         try {
-            date = sdf.parse(fromdate+" 00:00:00");
-            lastdate = sdf.parse(fromdate+" 23:59:59");
+            date = sdf.parse(fromdate + " 00:00:00");
+            lastdate = sdf.parse(fromdate + " 23:59:59");
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        List<TFlight> tFlightList = tFlightRepository.findByFromcityAndTocityAndFromtimeBetween(fromcity, tocity,date,lastdate);
+        List<TFlight> tFlightList = tFlightRepository.findByFromcityAndTocityAndFromtimeBetween(fromcity, tocity, date, lastdate);
         return tFlightList;
     }
-    public List<TFlight> findTodayTflights(){
+
+    /**
+     * 查询今日及以后航班信息
+     *
+     * @return
+     */
+    public List<TFlight> findTodayTflights() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date nowDate = new Date();
-//        Date firstTime=null;
-//        Date lastTime=null;
-//        String fromdate=sdf.format(nowDate).substring(0, 10);
-//        try {
-//            firstTime = sdf.parse(fromdate+" 00:00:00");
-//            lastTime = sdf.parse(fromdate+" 23:59:59");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
         List<TFlight> tFlightList = tFlightRepository.findTFlightsByFromtimeAfter(nowDate);
         System.out.println(tFlightList);
         return tFlightList;

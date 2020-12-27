@@ -168,7 +168,7 @@
                 <div th:text="${tFlight.fromtime.toString().substring(0,10)}" style="margin: 5px 10px;">12月24日</div>
                 <div  style="display:flex;margin: 10px;justify-content: space-between;">
                 <div style="color: #eb7350" th:text="'￥'+${tFlight.ecprice}+'元'">￥1200元</div>
-                <button class="layui-btn layui-btn-warm layui-btn-xs">立抢</button>
+                <button th:data-fromcity="${tFlight.fromcity}" th:data-tocity="${tFlight.tocity}" th:data-fromdate="${tFlight.fromtime.toString().substring(0,10)}" class="layui-btn layui-btn-warm layui-btn-xs search_btn">立抢</button>
                 </div>
             </div>
         </div>
@@ -196,6 +196,16 @@
     <!-- ZylVerificationCode Js-->
     <script type="text/javascript" src="assembly/zylVerificationCode/zylVerificationCode.js"></script>
     <script>
+        $(".search_btn").click(function () {
+            var fromcity = $(this).attr("data-fromcity");//获得参数的值
+            var tocity = $(this).attr("data-tocity");//获得参数的值
+            var fromdate = $(this).attr("data-fromdate");//获得参数的值
+            console.log(fromcity)
+            console.log(tocity)
+            console.log(fromdate)
+            window.location.href = "/search?fromcity=" + fromcity + "&tocity="+tocity+"&fromdate="+fromdate;
+
+        });
         layui.use('form', function () {
             var form = layui.form;
 
